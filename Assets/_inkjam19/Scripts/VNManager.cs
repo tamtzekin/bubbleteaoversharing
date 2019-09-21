@@ -29,6 +29,10 @@ public class VNManager : MonoBehaviour
 	[SerializeField]
 	private Text speakerText;
 
+	[Header("Cinematographer")]
+	[SerializeField]
+	CameraDirector cameraDirector;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -80,6 +84,13 @@ public class VNManager : MonoBehaviour
 				text = story.Continue();
 				// This removes any white space from the text.
 				text = text.Trim();
+				if(text.StartsWith("CAMERA"))
+				{// If we're changing the camera
+					string cameraName = text.Substring(7);
+					Debug.Log("change camera to " + cameraName);
+					cameraDirector.ChangeCamera(cameraName);
+					text = "";// Skip this line
+				}
 			}
 			while (text.Length == 0);
 			// Display the text on screen!
