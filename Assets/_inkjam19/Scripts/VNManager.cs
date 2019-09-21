@@ -43,26 +43,13 @@ public class VNManager : MonoBehaviour
 				RefreshView();
 			}
 		}
-		else if(choiceHolder.transform.childCount > 0)
+
+		for (int i = 0; i < choiceHolder.transform.childCount; i++)
 		{
-			if (Input.GetKeyDown("1"))
+			string keyName = (i + 1).ToString();
+			if (Input.GetKeyDown(keyName))
 			{
-				story.ChooseChoiceIndex(0);
-				RefreshView();
-			}
-			else if (Input.GetKeyDown("2"))
-			{
-				story.ChooseChoiceIndex(1);
-				RefreshView();
-			}
-			else if (Input.GetKeyDown("3"))
-			{
-				story.ChooseChoiceIndex(2);
-				RefreshView();
-			}
-			else if (Input.GetKeyDown("4"))
-			{
-				story.ChooseChoiceIndex(3);
+				story.ChooseChoiceIndex(i);
 				RefreshView();
 			}
 		}
