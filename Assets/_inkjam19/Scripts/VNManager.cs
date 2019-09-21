@@ -76,10 +76,15 @@ public class VNManager : MonoBehaviour
 		// Read all the content until we can't continue any more
 		if (story.canContinue)
 		{
-			// Continue gets the next line of the story
-			string text = story.Continue();
-			// This removes any white space from the text.
-			text = text.Trim();
+			string text;
+			do
+			{
+				// Continue gets the next line of the story
+				text = story.Continue();
+				// This removes any white space from the text.
+				text = text.Trim();
+			}
+			while (text.Length == 0);
 			// Display the text on screen!
 			CreateContentView(text);
 			return;
