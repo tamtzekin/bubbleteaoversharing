@@ -106,10 +106,6 @@ public class VNManager : MonoBehaviour
 		Text choiceText = choice.GetComponentInChildren<Text>();
 		choiceText.text = text;
 
-		// Make the button expand to fit the text
-		HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-		layoutGroup.childForceExpandHeight = false;
-
 		return choice;
 	}
 
