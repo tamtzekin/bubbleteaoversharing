@@ -10,19 +10,29 @@ public class VNManager : MonoBehaviour
 
 	// UI Prefabs
 	[SerializeField]
-	private Text dialogueText;
-	[SerializeField]
 	private Button buttonPrefab;
 
 	[SerializeField]
 	private GameObject choiceHolder;
 
+	[Header("Dialogue")]
+
 	[SerializeField]
 	GameObject dialogueBox;
+
+	[SerializeField]
+	private Text dialogueText;
+
+	[SerializeField]
+	GameObject speakerBox;
+
+	[SerializeField]
+	private Text speakerText;
 
 	// Use this for initialization
 	void Start ()
 	{
+		speakerBox.SetActive(false);
 		story = new Story(inkJSONAsset.text);
 		dialogueText.text = "";
 		StartStory();
@@ -104,10 +114,22 @@ public class VNManager : MonoBehaviour
 		RefreshView();
 	}
 
-	// Creates a button showing the choice text
+	// Updates dialogue showing the choice text
 	void CreateContentView(string text)
 	{
-		dialogueText.text = text;
+		int colonIndex = text.IndexOf(':');
+		if(colonIndex > 0)
+		{// Text has a speaker
+			string speaker = text.Substring(0, colonIndex);
+			speakerBox.SetActive(true);
+			speakerText.text = speaker;
+			dialogueText.text = text.Substring(colonIndex+1).Trim();
+		}
+		else
+		{
+			speakerBox.SetActive(false);
+			dialogueText.text = text;
+		}
 	}
 
 	// Creates a button showing the choice text
