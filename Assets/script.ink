@@ -1,8 +1,13 @@
 /*
-
 For InkJam 2019
 Made with Ink by Inkle
 www.inklestudios.com
+
+James McHugh @jemztones
+Nathan Ratsavanah
+Jay Tan
+Justin Tam @tamtzekin
+George Mak @dinopokey
 
 */
 
@@ -19,7 +24,7 @@ VAR DEBUG = true
  -> intro
 }
 
-// Function to alter states and status of characters 
+// ALter the various states and stats of characters
 === function stats(ref x, y) ===
 	~ x = x + y
 
