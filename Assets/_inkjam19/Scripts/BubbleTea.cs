@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BubbleTea : MonoBehaviour
 {
-	[Header("Boba Properties")]
+	[Header("Boba Appearance")]
 	[SerializeField]
 	bool strawIn = true;
 
@@ -17,6 +17,10 @@ public class BubbleTea : MonoBehaviour
 
 	[SerializeField]
 	Color teaColor;
+
+	[Header("Boba Properties")]
+	[SerializeField]
+	List<Ingredient> ingredients;
 
 	[Header("Submodels")]
 
