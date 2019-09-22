@@ -14,7 +14,7 @@ George Mak @dinopokey
 // Debug mode - skip to different sections of the story
 VAR DEBUG = true
 {DEBUG:
-	IN DEBUG MODE!
+	WELCOME TO DEBUG MODE
 	*	[Beginning...]	-> intro
     *   [Prinita] -> customer_one
     *   [Nam] -> customer_two
@@ -370,8 +370,8 @@ VAR taro = false
         *   [What's your question?] The pearls respond to a single question. Try to be specific.
         
     -   Nam: "Okay...pearls...are you listening?"
-    -   Name: "Here we go..."
-    -   Name: "Should I quit and go to Nepal to become a yoga teacher?"
+    -   Nam: "Here we go..."
+    -   Nam: "Should I quit and go to Nepal to become a yoga teacher?"
         *   [(Read the pearls)]
 
     -   Three times, left to right. Turn the cup upside-down. I leant against the counter as we waited for a minute. 
@@ -385,7 +385,7 @@ VAR taro = false
 
     -   The sign of an anchor made out in black splodges.
         *   [You will find stability] It's just the beginning. You'll be downwards dogging into a stable existence. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-        *   [You're stuck] Don't throw it all away. Stick with what you're good at: selling debt to children. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
+        *   [You're stuck] Don't throw it all away. Stick with what you're good at—selling debt to children. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
     
     -   Squiggles that look like the letter 'm'...
         *   [A fire] I see a fire...not entirely sure it's going to end well. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
@@ -417,7 +417,7 @@ VAR taro = false
     -   Customer: Yeah, hi. Do you do boba?
     -   We do. 
     -   Customer: What's the name of that drink there? 'I'm Putting Protest Rally Facebook Event Links In My Twitter Bio For Social Capital' Taro and Orange Tea.
-    -   Customer. Name's Valeria.
+    -   Customer: Name's Valeria.
         *   [(Make drink)]
         -> small_talk
 
