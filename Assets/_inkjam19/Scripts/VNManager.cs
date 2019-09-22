@@ -170,4 +170,10 @@ public class VNManager : MonoBehaviour
 			GameObject.Destroy(choiceHolder.transform.GetChild(i).gameObject);
 		}
 	}
+
+    //returns a variable from ink script
+    public object GetInkVar(string inkVar)
+    {
+        return story.variablesState[inkVar];
+    }
 }
