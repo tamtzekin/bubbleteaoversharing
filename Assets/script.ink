@@ -64,13 +64,20 @@ VAR milk = false
 
 // Game script
 === intro === 
-    -   I've been here six years now. It's been good to me, though. It can get pretty quiet. 
-    -   It's better than being at a desk all day.
-    -   Today's first customer was here.
+    -   Some bubble tea places go all out. Cheese, burnt cheese, fresh taro, purple rice, rice and yoghurt. 
+    -   It gets pretty wild.
+    -   You know how people read tea leaves? It's called "tasseography", I found out. It's really big with mums on Pinterest now. 
+    -   So, I read an article in Harper's. I thought I might be able to do the same.
+    -   They tend to look down on us. 
+    -   But I'd argue it's an art in itself.
+        *   [(Serve)]
     -> customer_one
 
 === customer_one === 
-    -  "I'll have the Peach Golden Tea," they said.
+    -  "Do you do skim?"
+        *   Of course[] we do.
+        *   [Huh?] Um, just let me check real quick...
+    -   "Almond will do. Whatever. A 'Wasting My Time Away Going to Art Gallery Openings' Peach and Taro Golden Rain Tea, please?"
     -> choose_temp
 
     = choose_temp
@@ -84,6 +91,7 @@ VAR milk = false
 
     = choose_sugar
     -   I got pretty good at guessing what people wanted.
+    -   Hot.
     -   Their sugar levels.
         *   [None] No sugar, right?
         ~ sugarLevel = none
@@ -130,9 +138,8 @@ VAR milk = false
         -> small_talk
 
     = small_talk
-    -   For some people it was like a confessional. They knew that coming here, they weren't getting their usual kick. 
-    -   We dealt in much more than that. 
-        *   [(continue)] 
+    -   I don't even know if the tea was any good. Sometimes they just tipped it out into the gutter and handed the cup back over for a reading.
+        *   [(Small talk)] 
         
     -   Customer: "You guys been open for long?"
         *   People know us[]. We have our regulars. Surprised I haven't seen you around before.
@@ -151,12 +158,20 @@ VAR milk = false
     -   Customer: "It's Martha."
     -   Thanks, Martha. 
 
-    -   Martha: "You probably recognise that. Your mother knew it well."
-        *   [I remember] It's nice of you to finally come and visit. 
-        "You remembered. I'm glad. Sorry it's been so long."
-        *   [(Keep making the drink)] You're talking about someone else, I think.
-        Martha: "Alright...? Nevermind."
-        I kept making the drink. I knew what she wanted. It was why they came, why I worked the long shift. 
+    -   Martha: "Ah, it's just such a pain. Jackleby wants me to go back over to Brazil. He's found an artist over there, over in the favelas. He thinks he'll be big. He's doing a studio visit."
+    -   "I think it's pretty amateur stuff." 
+        *   [Support him] You should give it a chance. It'll be a change of pace. 
+        *   [Forget it] Can't he hunt for artists over here instead?
+    -   Martha: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
+    -   Martha: "And the artist is white, too. So it's...a fresh perspective. It's really cultural over there."
+    -   Martha: "What do I tell him?"
+        *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there.  
+        *   [That's...exploitative] ...
+        Uuuuuuh..........
+    -   Martha: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
+        *   [All for it]    Support local artists. I'm into it. 
+        -> read_fortune
+        *   [Bad idea]  You're really starting to make this sound like a bad idea.
         -> read_fortune
         
     = read_fortune
@@ -217,7 +232,109 @@ VAR milk = false
         }
     -> customer_two
     
-=== customer_two ===
+=== customer_two === 
+    -  "Do you do skim?"
+        *   Of course[] we do.
+        *   [Huh?] Um, just let me check real quick...
+    -   "Almond will do. Whatever. A Peach Golden Tea, please?"
+    -> choose_temp
 
+    = choose_temp
+        *   [Cold] 
+        ~ tempLevel = cold 
+        -> choose_sugar
+
+        *   [Hot] 
+        ~ tempLevel = hot
+        -> choose_sugar 
+
+    = choose_sugar
+    -   I got pretty good at guessing what people wanted.
+    -   Hot.
+    -   Their sugar levels.
+        *   [None] No sugar, right?
+        ~ sugarLevel = none
+        -> choose_ice
+
+        *   [15%] I'm guessing you want it less sweet.
+        ~ sugarLevel = less
+        -> choose_ice
+
+        *   [50%] Half sugar, right?
+        ~ sugarLevel = half
+        -> choose_ice
+
+        *   [75%] You look like you'd want more sugar. Am I right?
+        ~ sugarLevel = more
+        -> choose_ice
+
+    = choose_ice
+    - How much ice they wanted. You could see it in their eyes, most of the time.
+        *   [None] 
+        ~ iceLevel = none
+        -> choose_size
+
+        *   [15%]
+        ~ iceLevel = less
+        -> choose_size
+
+        *   [50%]
+        ~ iceLevel = half
+        -> choose_size
+
+        *   [75%]
+        ~ iceLevel = more
+        -> choose_size
+
+    = choose_size 
+    -   And how big they wanted it.
+        *   [Regular]
+        ~ sizeLevel = regular
+        -> small_talk
+
+        *   [Large]
+        ~ sizeLevel = large
+        -> small_talk
+
+    = small_talk
+    -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please."
+    -   Customer: Name for that is Nam.
+        *   [(Make drink)]
+
+    -   Nam: "You know, because you're listening, not going to lie but I'm pretty stressed right now."
+        *   [What's up?] What's bothering you?
+        *   [(Just make the tea)]
+    -   Nam: "I have a feeling I'm just not going to make target this week."
+    -   Nam: "You see, my job is to go to schools and "
+    -   Nam: "I'm a financial evangelist for a financial empowerment company. It's not a startup, so don't call it that."
+        *   []   
+        *   [] 
+    -   Nam:
+        *   [] 
+        -> read_fortune
+        *   [] 
+        -> read_fortune
     
 -> END
+
+
+// template for small_talk
+    = small_talk
+    -   Customer: 
+    -   Customer: 
+        *   [(Make drink)]
+
+    -   Customer: 
+        *   [] 
+        *   []
+    -   Customer: 
+    -   Customer: 
+    -   Customer: 
+        *   []   
+        *   [] 
+    -   Customer:
+        *   [] 
+        -> read_fortune
+        *   [] 
+        -> read_fortune
+    
