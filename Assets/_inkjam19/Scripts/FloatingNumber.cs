@@ -30,6 +30,10 @@ public class FloatingNumber : MonoBehaviour {
         {
             //lerp from clear to color
             textMesh.color = Color.Lerp(initColor, Color.clear, t / 2f);
+            if(textMesh.color.a <= 0.05)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

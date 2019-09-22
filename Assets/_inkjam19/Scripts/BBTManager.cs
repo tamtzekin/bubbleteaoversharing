@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BBTManager : MonoBehaviour {
     [SerializeField]
@@ -107,7 +108,16 @@ public class BBTManager : MonoBehaviour {
                 ingredientTimer += Time.deltaTime;
                 if(ingredientTimer >= ingredientTimerIncrement)
                 {
-                    bubbleTea.modIngredientScore(SelectedIngredientIndex, bubbleTea.GetIngredientScore(SelectedIngredientIndex) + 1);
+                    int newScore = bubbleTea.GetIngredientScore(SelectedIngredientIndex) + 1;
+                    if (newScore <= 4)
+                    {
+                        bubbleTea.modIngredientScore(SelectedIngredientIndex, newScore);
+                        GameObject levelsText = (GameObject)Instantiate(Resources.Load("Prefabs/FloatingNumber"));
+                        levelsText.transform.parent = bubbleTea.gameObject.transform;
+                        levelsText.GetComponent<RectTransform>().localPosition = new Vector3(0, 100, -5);
+                        levelsText.GetComponent<RectTransform>().localRotation = new Quaternion(0, 0, 0, 1);
+                        levelsText.GetComponent<TextMeshPro>().text = "+" + (newScore * 25) + "%";
+                    }
                     ingredientTimer = 0;
                 }
             }
