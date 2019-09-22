@@ -17,13 +17,16 @@ public class BBTManager : MonoBehaviour {
     int SelectedIngredient {
         get { return selectedIngredient; }
         set {
-            if (value < recipe.Ingredients.Count)
+            if (value != selectedIngredient)
             {
-                selectedIngredient = value;
-                assignToppingLetter();
-                toppingName.text = IngredientString();
-                currentTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString() + "_icon");
-                currentTopping.color = new Color(1, 1, 1, 1);
+                if (value < recipe.Ingredients.Count)
+                {
+                    selectedIngredient = value;
+                    assignToppingLetter();
+                    toppingName.text = IngredientString();
+                    currentTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString() + "_icon");
+                    currentTopping.color = new Color(1, 1, 1, 1);
+                }
             }
         }
     }
@@ -127,43 +130,43 @@ public class BBTManager : MonoBehaviour {
                 break;
         }
 
-        if (Input.GetKeyUp(KeyCode.Q) && SelectedIngredient != 0)
+        if (Input.GetKeyUp(KeyCode.Q))
         {
             SelectedIngredient = 0;
         }
-        if (Input.GetKeyUp(KeyCode.W) && SelectedIngredient != 1)
+        if (Input.GetKeyUp(KeyCode.W))
         {
             SelectedIngredient = 1;
         }
-        if (Input.GetKeyUp(KeyCode.E) && SelectedIngredient != 2)
+        if (Input.GetKeyUp(KeyCode.E))
         {
             SelectedIngredient = 2;
         }
-        if (Input.GetKeyUp(KeyCode.R) && SelectedIngredient != 3)
+        if (Input.GetKeyUp(KeyCode.R))
         {
             SelectedIngredient = 3;      
         }
-        if (Input.GetKeyUp(KeyCode.T) && SelectedIngredient != 4)
+        if (Input.GetKeyUp(KeyCode.T))
         {
             SelectedIngredient = 4;
         }
-        if (Input.GetKeyUp(KeyCode.Y) && SelectedIngredient != 5)
+        if (Input.GetKeyUp(KeyCode.Y))
         {
             SelectedIngredient = 5;
         }
-        if (Input.GetKeyUp(KeyCode.U) && SelectedIngredient != 6)
+        if (Input.GetKeyUp(KeyCode.U))
         {
             SelectedIngredient = 6;
         }
-        if (Input.GetKeyUp(KeyCode.I) && SelectedIngredient != 7)
+        if (Input.GetKeyUp(KeyCode.I))
         {
             SelectedIngredient = 7;
         }
-        if (Input.GetKeyUp(KeyCode.O) && SelectedIngredient != 8)
+        if (Input.GetKeyUp(KeyCode.O))
         {
             SelectedIngredient = 8;
         }
-        if (Input.GetKeyUp(KeyCode.P) && SelectedIngredient != 9)
+        if (Input.GetKeyUp(KeyCode.P))
         {
             SelectedIngredient = 9;
         }
