@@ -8,3 +8,4 @@ Temp
 *.vs
 Thumbs.db*
 obj/Debug
+ProjectSettings/ProjectVersion.txt

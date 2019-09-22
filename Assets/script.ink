@@ -19,9 +19,6 @@ VAR DEBUG = false
 // Function to alter states
 === function stats(ref x, y) ===
 	~ x = x + y
-	
-// Function to toggle boolean
-=== function toggle(ref  t, f) ===
 
 // Customer states
 VAR customer_satisfaction = 0
@@ -40,27 +37,18 @@ LIST levelStates = none, less, half, more
 VAR iceLevel = none
 VAR sugarLevel = none
 
-// Customer interactions - customer_one
-VAR recognise = false
-
-// Customer interactions - customer_two
-
-// Customer interactions - customer_three
-
 // Toppings 
 /* Aloe is from Bangladesh, Red bean is from Colombia, Taro is from Papua New Guinea */
 VAR aloevera = false 
+VAR cheesefoam = false
 VAR coconutjelly = false
+VAR custard = false
 VAR herbaljelly = false
 VAR lycheejelly = false
+VAR mousse = false
 VAR pearls = false
 VAR redbean = false
 VAR taro = false
-
-// ingredients 
-VAR sugar = false
-VAR mousse = false
-VAR milk = false
 
 // Game script
 === intro === 
@@ -77,64 +65,75 @@ VAR milk = false
     -  "Do you do skim?"
         *   Of course[] we do.
         *   [Huh?] Um, just let me check real quick...
-    -   "Almond will do. Whatever. A 'Wasting My Time Away Going to Art Gallery Openings' Peach and Taro Golden Rain Tea, please?"
+    -   "Almond will do. Whatever. A 'Wasting My Youth Away Going to Art Gallery Openings Every Weekend' Peach and Taro Golden Rain Tea, please? Normal size. Cold, with less sugar, a bit of ice."
     -> choose_temp
 
     = choose_temp
-        *   [Cold] 
+        *   [Cold] Cold.
         ~ tempLevel = cold 
+        {stats(customer_satisfaction, 1)} 
         -> choose_sugar
 
-        *   [Hot] 
-        ~ tempLevel = hot
+        *   [Hot] Hot.
+        ~ tempLevel = hot 
+        {stats(customer_satisfaction, -1)}
         -> choose_sugar 
 
     = choose_sugar
-    -   I got pretty good at guessing what people wanted.
-    -   Hot.
+    -   I got pretty good at knowing how people wanted it.
     -   Their sugar levels.
-        *   [None] No sugar, right?
-        ~ sugarLevel = none
+        *   [None] No sugar, right? 
+        ~ sugarLevel = none 
+        {stats(customer_satisfaction, -1)}
         -> choose_ice
 
         *   [15%] I'm guessing you want it less sweet.
-        ~ sugarLevel = less
+        ~ sugarLevel = less 
+        {stats(customer_satisfaction, 1)}
         -> choose_ice
 
         *   [50%] Half sugar, right?
-        ~ sugarLevel = half
+        ~ sugarLevel = half 
+        {stats(customer_satisfaction, -1)}
         -> choose_ice
 
         *   [75%] You look like you'd want more sugar. Am I right?
-        ~ sugarLevel = more
+        ~ sugarLevel = more 
+        {stats(customer_satisfaction, -1)}
         -> choose_ice
 
     = choose_ice
     - How much ice they wanted. You could see it in their eyes, most of the time.
         *   [None] 
-        ~ iceLevel = none
+        ~ iceLevel = none 
+        {stats(customer_satisfaction, -1)}
         -> choose_size
 
         *   [15%]
-        ~ iceLevel = less
+        ~ iceLevel = less 
+        {stats(customer_satisfaction, 1)}
         -> choose_size
 
         *   [50%]
-        ~ iceLevel = half
+        ~ iceLevel = half 
+        {stats(customer_satisfaction, -1)}
         -> choose_size
 
         *   [75%]
-        ~ iceLevel = more
+        ~ iceLevel = more 
+        {stats(customer_satisfaction, -1)}
         -> choose_size
 
     = choose_size 
     -   And how big they wanted it.
         *   [Regular]
-        ~ sizeLevel = regular
+        ~ sizeLevel = regular 
+        {stats(customer_satisfaction, 1)}
         -> small_talk
 
         *   [Large]
-        ~ sizeLevel = large
+        ~ sizeLevel = large 
+        {stats(customer_satisfaction, -1)}
         -> small_talk
 
     = small_talk
@@ -155,32 +154,32 @@ VAR milk = false
             **  Okay. [Just give me a sec]. Can I get a name for the order?
         *   In a sec[]. I have to make the drink first. Can I get a name?
 
-    -   Customer: "It's Martha."
-    -   Thanks, Martha. 
+    -   Customer: "It's Prinita."
+    -   Thanks, Prinita. 
 
-    -   Martha: "Ah, it's just such a pain. Jackleby wants me to go back over to Brazil. He's found an artist over there, over in the favelas. He thinks he'll be big. He's doing a studio visit."
+    -   Prinita: "Ah, it's just such a pain. Erik wants me to go back over to Brazil. He's found an artist over there, over in the favelas. He thinks he'll be big. He's doing a studio visit."
     -   "I think it's pretty amateur stuff." 
         *   [Support him] You should give it a chance. It'll be a change of pace. {stats(customer_satisfaction, -1)}
         *   [Forget it] Can't he hunt for artists over here instead? {stats(customer_satisfaction, 1)}
-    -   Martha: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
-    -   Martha: "And the artist is white, too. So it's...a fresh perspective. It's really cultural over there."
-    -   Martha: "What do I tell him?"
+    -   Prinita: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
+    -   Prinita: "And the artist is white, too. So it's...a fresh perspective. It's really cultural over there."
+    -   Prinita: "What do I tell him?"
         *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there. {stats(customer_satisfaction, -1)}  
         *   [That's...exploitative] ... 
         Uuuuuuh.......... 
-    -   Martha: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
+    -   Prinita: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
         *   [All for it]    Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
         -> read_fortune
         *   [Bad idea]  You're really starting to make this sound like a bad idea. {stats(customer_satisfaction, 1)}
         -> read_fortune
         
     = read_fortune
-    -   Martha: "Alright." She handed the drink back. "Tell me what they say."
+    -   Prinita: "Alright." She handed the drink back. "Tell me what they say."
     A little bit of milk slushed about at the bottom. The cup was wet with a few drops of condensation.
     I took the straw out. Carefully. I didn't want to disturb the pearls. 
         *   [What's your question?] What do you want to ask the pearls?
         
-    -   Martha: "Whether I should leave my job and follow my partner to Spain. Or leave them instead."
+    -   Prinita: "Whether I should leave my job and follow my partner to Spain. Or leave them instead."
         *   [Really?] You're sure you want the answer to that?
         *   [Whatever you say] If that's what you want. 
         
@@ -203,12 +202,11 @@ VAR milk = false
         
         - And the smear of taro mixed with milk in the shape of a cross.
         *   [It's a target] The 'x' means you're on target. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
-        -> fate_handler
+        -> fate_handler_customer_one
         *   [It's a warning] And the 'x' means you're going in the wrong direction. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
-        -> fate_handler
-        
-    = fate_handler
-    CURRENT STATUS >> tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+        -> fate_handler_customer_one
+
+= fate_handler_customer_one
         { 
             -   not tiredness && customer_satisfaction > 0: It's not that bad. The pearls are just an approximation of your future.
             I'm not a big believer in anything being exact. 
@@ -216,89 +214,100 @@ VAR milk = false
             
             -   else:
             You've got a lot of bad luck heading your way. I know it's not idea. Some people choose not to look at the pearls in the first place. They'd rather not know.
-            Martha: "I appreciate the words. Thanks."
+            Prinita: "I appreciate the words. Thanks."
         }
         
         { 
             -   tiredness && customer_satisfaction > 0: You should be happy. Things are going okay for you.
         I was too tired to pay much attention. It took a lot out of me when I read the pearls.
-        Martha: "Okay. Thanks. They're just stupid pearls anyway. It's pretty stupid, staring at bubble tea and some stale milk."
+        Prinita: "Okay. Thanks. They're just stupid pearls anyway. It's pretty stupid, staring at bubble tea and some stale milk."
         
             -   else:
             I'm really sorry. There's not a lot I can do.
             I was tired. Reading the pearls took a lot out of me.
-            Martha: "God, damn it. I shouldn't have even looked. It was always going to screw up either way."
-            Martha looked at the cup one last time, as if looking would change things, and left.
+            Prinita: "God, damn it. I shouldn't have even looked. It was always going to screw up either way."
+            Prinita looked at the cup one last time, as if looking would change things, and left.
         }
-    -> customer_two
-    
+        -> show_final_score_customer_one
+
+=== show_final_score_customer_one ===
+        FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+        -> customer_two
+
 === customer_two === 
-    -  "Do you do skim?"
-        *   Of course[] we do.
-        *   [Huh?] Um, just let me check real quick...
-    -   "Almond will do. Whatever. A Peach Golden Tea, please?"
+    -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please. No ice, heaps of sugar. Cold and large."
+    -   Customer: "Name for that is Nam."
     -> choose_temp
 
     = choose_temp
-        *   [Cold] 
+    Uh, so you wanted... 
+        *   [Cold] Cold.
         ~ tempLevel = cold 
+        {stats(customer_satisfaction, 1)}
         -> choose_sugar
 
-        *   [Hot] 
-        ~ tempLevel = hot
+        *   [Hot] Hot.
+        ~ tempLevel = hot 
+        {stats(customer_satisfaction, -1)}
         -> choose_sugar 
 
     = choose_sugar
-    -   I got pretty good at guessing what people wanted.
-    -   Hot.
-    -   Their sugar levels.
-        *   [None] No sugar, right?
-        ~ sugarLevel = none
+    -   Sugar...
+        *   [None] No sugar.
+        ~ sugarLevel = none 
+        {stats(customer_satisfaction, -1)}
         -> choose_ice
 
-        *   [15%] I'm guessing you want it less sweet.
-        ~ sugarLevel = less
+        *   [15%] Less sweet.
+        ~ sugarLevel = less 
+        {stats(customer_satisfaction, -1)}
         -> choose_ice
 
-        *   [50%] Half sugar, right?
-        ~ sugarLevel = half
+        *   [50%] Half sweetness.
+        ~ sugarLevel = half 
+        {stats(customer_satisfaction, -1)}
         -> choose_ice
 
-        *   [75%] You look like you'd want more sugar. Am I right?
-        ~ sugarLevel = more
+        *   [75%] Sweeter.
+        ~ sugarLevel = more 
+        {stats(customer_satisfaction, 1)}
         -> choose_ice
 
     = choose_ice
-    - How much ice they wanted. You could see it in their eyes, most of the time.
-        *   [None] 
-        ~ iceLevel = none
+    - Ice levels...
+        *   [None] No ice.
+        ~ iceLevel = none 
+        {stats(customer_satisfaction, 1)}
         -> choose_size
 
-        *   [15%]
-        ~ iceLevel = less
+        *   [15%] A little bit of ice.
+        ~ iceLevel = less 
+        {stats(customer_satisfaction, -1)}
         -> choose_size
 
-        *   [50%]
+        *   [50%] Half ice.
         ~ iceLevel = half
+        {stats(customer_satisfaction, -1)}
         -> choose_size
 
-        *   [75%]
-        ~ iceLevel = more
+        *   [75%] More ice.
+        ~ iceLevel = more 
+        {stats(customer_satisfaction, -1)}
         -> choose_size
 
     = choose_size 
-    -   And how big they wanted it.
-        *   [Regular]
-        ~ sizeLevel = regular
+    -   And size.
+        *   [Regular] You wanted regular.
+        ~ sizeLevel = regular 
+        {stats(customer_satisfaction, -1)}
         -> small_talk
 
-        *   [Large]
-        ~ sizeLevel = large
+        *   [Large] You wanted large.
+        ~ sizeLevel = large 
+        {stats(customer_satisfaction, 1)}
         -> small_talk
 
     = small_talk
-    -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please."
-    -   Customer: "Name for that is Nam."
         *   [(Make drink)]
 
     -   Nam: "You know, because you're listening, not going to lie but I'm pretty stressed right now."
@@ -316,14 +325,18 @@ VAR milk = false
         *   [Not worth it] Look, Nam. Can I be honest? These kids don't need financial advice. They don't need a credit card.
         Let them live, wild and free, like kids are meant to.
         Nam: "You're probably right. Money truly is evil..."
-        Nam: "I just feel like things have come too far now. Why would anyone need a yoga teacher?
-            ** [Do it for yourself] It's not just about what people want. You're doing it for yourself too.
-            ** [It could be anything] You don't have to just become a yoga teacher. Why don't you try raising animals? Or ikebana? 
-            You can do anything you want. Don't be a slave to the banks.  
+        Nam: "I'm going to burn all my money and move to Nepal!!"
+            ** [Do it.] Mindfulness is immaterial. You won't need it. Spark the flame.
+            -> read_fortune
+            ** [WHAT??] ...maybe just keep a savings account, for backup, just in case?
+            -> read_fortune
         *   [You can do it] You're doing important work. These kids need to know how to manage their wealth, before it gets out of hand.
         Every child needs financial independence. The market defines our future. 
-        Nam: "Thank you. I needed to hear that. I know what I'm doing is critical. Wealth is everything!" 
-            ** [] 
+        Nam: "Thank you. I needed to hear that. I know what I'm doing is critical. Wealth is everything!"
+            **  [That's right] The market is our god. Let it guide you like a flame in the night.
+            -> read_fortune
+            ** [I think I was wrong] Wait, maybe I got this wrong. This is not the path you want to take!! 
+            -> read_fortune
 
     = read_fortune
     -   Nam: "So, what happens now? Do I give you my cup? There are a few pearls left."
@@ -350,18 +363,54 @@ VAR milk = false
     
     -   Squiggles that look like the letter 'm'...
         *   [A fire] I see a fire...not entirely sure it's going to end well. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
+        -> final_score
         *   [A mountain] I see a mountain. Nepal it is! {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
+        -> show_final_score_customer_two
 
-    = fate_handler
-    CURRENT STATUS >> tired = {tiredness}, customer_satisfaction = {customer_satisfaction}
+=== show_final_score_customer_two ===
+        FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+        -> customer_three
+        
+=== customer_three ===
+    -   Customer: Yeah, hi. Do you do boba?
+    -   We do. 
+    -   Customer: What's the name of that drink there? 'I'm Putting Protest Rally Facebook Event Links In My Twitter Bio For Social Capital' Taro and Orange Tea.
+    -   Customer. Name's Valeria.
+        *   [(Make drink)]
+        -> small_talk
 
-// display score: 1. Customer satisfaction, 2. Bubble tea skill
+    = small_talk
+    -   Valeria: "So how does this work. I tell you a bit about myself, then I ask a question, and you tell me what's gonna happen?"
+    -   Valeria: "I'm an artist. Was an artist, now work as more of a consultant these days. Freelance. Rent's too much in Berlin now that all the investors have moved in."
+    -   Valeria: "You heard of DistenZ? They make sneakers from ethically-sourced vegan material."
+    -   Valeria: "After you're done with them, you can burn them for biofuel. Put it in your car, or something."
+    -   Valeria: "I bounce between Colombia and Shenzhen sourcing materials. Most of it comes from recycled bullet casings we find buried in farms across Mongolia."
+        *   [Save our planet] Our planet is burning. Save it. Do your bit, and all.  
+        *   [How are bullet casings vegan?] I don't really understand how bullet casings can be considered vegan. In any way. 
+        Valeria: "I mean, there are no animals involved. Right?"
 
-    -> customer_three
+    -   Valeria: "Anyway, I'm having trouble. I thought the pearls might be able to guide my way."
+    -   Valeria: ""
+    /*
+        *   []
+        *   []
+
+    -   Valeria: 
+    -   Valeria:
+        *   [] 
+        *   []
+
+    -   Valeria: 
+        *   []
+
+        -> read_fortune
+        *   []  
+        -> read_fortune
+    */
     
 -> END
 
-//small talk template
+/*small talk template
     = small_talk
     -   Customer: 
     -   Customer: 
@@ -379,4 +428,4 @@ VAR milk = false
         -> read_fortune
         *   []  
         -> read_fortune
-    
+    */
