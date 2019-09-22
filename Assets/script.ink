@@ -24,10 +24,10 @@ VAR DEBUG = false
 === function toggle(ref  t, f) ===
 
 // Customer states
-VAR customer_fate = 0
+VAR customer_satisfaction = 0
 
 // Mental health states
-VAR tired = 0
+VAR tiredness = 0
 
 // Bubble tea states
 LIST sizeState = regular, large
@@ -160,18 +160,18 @@ VAR milk = false
 
     -   Martha: "Ah, it's just such a pain. Jackleby wants me to go back over to Brazil. He's found an artist over there, over in the favelas. He thinks he'll be big. He's doing a studio visit."
     -   "I think it's pretty amateur stuff." 
-        *   [Support him] You should give it a chance. It'll be a change of pace. 
-        *   [Forget it] Can't he hunt for artists over here instead?
+        *   [Support him] You should give it a chance. It'll be a change of pace. {stats(customer_satisfaction, -1)}
+        *   [Forget it] Can't he hunt for artists over here instead? {stats(customer_satisfaction, 1)}
     -   Martha: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
     -   Martha: "And the artist is white, too. So it's...a fresh perspective. It's really cultural over there."
     -   Martha: "What do I tell him?"
-        *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there.  
-        *   [That's...exploitative] ...
-        Uuuuuuh..........
+        *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there. {stats(customer_satisfaction, -1)}  
+        *   [That's...exploitative] ... 
+        Uuuuuuh.......... 
     -   Martha: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
-        *   [All for it]    Support local artists. I'm into it. 
+        *   [All for it]    Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
         -> read_fortune
-        *   [Bad idea]  You're really starting to make this sound like a bad idea.
+        *   [Bad idea]  You're really starting to make this sound like a bad idea. {stats(customer_satisfaction, 1)}
         -> read_fortune
         
     = read_fortune
@@ -191,26 +191,26 @@ VAR milk = false
         
     -   The pearls had melted but I could make out some shapes. 
         *   [The curved lines symbolise travel] Two starchy squiggles, stuck to the base of the cup.
-        See the parallel lines? They symbolise travel, and also unity. {stats(customer_fate, 1)} {stats(tired, 1)}
+        See the parallel lines? They symbolise travel, and also unity. {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
                     
         * [The curved lines mean rough waters] Two starchy squiggles, stuck to the base of the cup.
-        Those two lines, they mean you're going to travel somewhere, but it's going to be really rough. {stats(customer_fate, -1)} {stats(tired, -1)}
+        Those two lines, they mean you're going to travel somewhere, but it's going to be really rough. I would reconsider. {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
         
         - The little arrow. Pointing north, but was that good? Or was it supposed to point south?
-        * [The arrow is pointing up] You're going in the right direction. {stats(customer_fate, 2)} {stats(tired, -2)}
+        * [The arrow is pointing up] You're going in the right direction. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
     
-        * [The arrow is pointing down] You're going in the wrong direction, unfortunately. {stats(customer_fate, -2)} {stats(tired, 2)}
+        * [The arrow is pointing down] You're going in the wrong direction, unfortunately. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
         
         - And the smear of taro mixed with milk in the shape of a cross.
-        *   [It's a target] The 'x' means you're on target. {stats(customer_fate, 3)}
+        *   [It's a target] The 'x' means you're on target. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
         -> fate_handler
-        *   [It's a warning] And the 'x' means you're going in the wrong direction. {stats(customer_fate, -3)} 
+        *   [It's a warning] And the 'x' means you're going in the wrong direction. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
         -> fate_handler
         
     = fate_handler
-    CURRENT STATUS >> tired = {tired}, customer_fate = {customer_fate}
+    CURRENT STATUS >> tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
         { 
-            -   not tired && customer_fate > 0: It's not that bad. The pearls are just an approximation of your future.
+            -   not tiredness && customer_satisfaction > 0: It's not that bad. The pearls are just an approximation of your future.
             I'm not a big believer in anything being exact. 
             
             
@@ -220,7 +220,7 @@ VAR milk = false
         }
         
         { 
-            -   tired && customer_fate > 0: You should be happy. Things are going okay for you.
+            -   tiredness && customer_satisfaction > 0: You should be happy. Things are going okay for you.
         I was too tired to pay much attention. It took a lot out of me when I read the pearls.
         Martha: "Okay. Thanks. They're just stupid pearls anyway. It's pretty stupid, staring at bubble tea and some stale milk."
         
@@ -298,22 +298,85 @@ VAR milk = false
 
     = small_talk
     -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please."
-    -   Customer: Name for that is Nam.
+    -   Customer: "Name for that is Nam."
         *   [(Make drink)]
 
     -   Nam: "You know, because you're listening, not going to lie but I'm pretty stressed right now."
         *   [What's up?] What's bothering you?
         *   [(Just make the tea)]
-    -   Martha: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
-    -   Martha: "And the artist is white, too. So it's...a fresh perspective."
-    -   Martha: "What do I tell him?"
-        *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there.  
-        *   [That's...exploitative] ...
-        Uuuuuuh..........
-    -   Martha: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
-        *   [All for it]    Support local artists. I'm into it. 
-        -> read_fortune
-        *   [Bad idea]  You're really starting to make this sound like a bad idea.
-        -> read_fortune
+    -   Nam: "To be honest, I just don't think I'm going to make target this week." 
+    -   Nam: "You see, I work as a financial evangelist. For a fortune empowerment company. But don't call it a startup. We're not just that."
+    -   Nam: "My job is to convince young people, in primary schools mostly, to get ahead on their investment portfolio while they're young."
+    -   Nam: "The company has a deal with each school to send their evangelists in, so the kids can remember a friendly face whenever they see our logo."
+        *   [That's admirable] Getting them on the right track to success. It's what we all need in life. 
+        *   [That's a real job?] So you pay schools out to force children to bank with you?
+    -   Nam: "Exactly. I like to think that I'm doing good work. Keeping our system afloat."
+    -   Nam: "Anyway, it's going to be hard signing enough young people for this cycle."
+    -   Nam: "My KPI is fifty kids. How do I do it?"
+        *   [Not worth it] Look, Nam. Can I be honest? These kids don't need financial advice. They don't need a credit card.
+        Let them live, wild and free, like kids are meant to.
+        Nam: "You're probably right. Money truly is evil..."
+        Nam: "I just feel like things have come too far now. Why would anyone need a yoga teacher?
+            ** [Do it for yourself] It's not just about what people want. You're doing it for yourself too.
+            ** [It could be anything] You don't have to just become a yoga teacher. Why don't you try raising animals? Or ikebana? 
+            You can do anything you want. Don't be a slave to the banks.  
+        *   [You can do it] You're doing important work. These kids need to know how to manage their wealth, before it gets out of hand.
+        Every child needs financial independence. The market defines our future. 
+        Nam: "Thank you. I needed to hear that. I know what I'm doing is critical. Wealth is everything!" 
+            ** [] 
+
+    = read_fortune
+    -   Nam: "So, what happens now? Do I give you my cup? There are a few pearls left."
+    He hands the finished drink over, with a few pearls squished together and left over. 
+        *   [What's your question?] The pearls respond to a single question. Try to be specific.
+        
+    -   Nam: "Okay...pearls...are you listening?"
+    -   Name: "Here we go..."
+    -   Name: "Should I quit and go to Nepal to become a yoga teacher?"
+        *   [(Read the pearls)]
+
+    -   Three times, left to right. Turn the cup upside-down. I leant against the counter as we waited for a minute. 
+    -   Nam looked bothered by the whole process.  
+        *   [(Turn the cup over)] Let's see what they have to say. 
+        
+    -   A wheel, each spoke clearly defined in strands of milk.  
+        *   [Change] Change is inevitable. Progress is coming, too. {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
+        *   [Perseverance] You have to keep pressing on. You're moving, you're rolling along in life. 
+        Now is not the time to leave that path. {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
+
+    -   The sign of an anchor made out in black splodges.
+        *   [You will find stability] It's just the beginning. You'll be downwards dogging into a stable existence. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+        *   [You're stuck] Don't throw it all away. Stick with what you're good at: selling debt to children. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
+    
+    -   Squiggles that look like the letter 'm'...
+        *   [A fire] I see a fire...not entirely sure it's going to end well. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
+        *   [A mountain] I see a mountain. Nepal it is! {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
+
+    = fate_handler
+    CURRENT STATUS >> tired = {tiredness}, customer_satisfaction = {customer_satisfaction}
+
+// display score: 1. Customer satisfaction, 2. Bubble tea skill
+
+    -> customer_three
     
 -> END
+
+//small talk template
+    = small_talk
+    -   Customer: 
+    -   Customer: 
+        *   [(Make drink)]
+
+    -   Customer: 
+        *   []
+        *   []
+    -   Customer: 
+    -   Customer:
+        *   [] 
+        *   []
+    -   Customer: 
+        *   []    
+        -> read_fortune
+        *   []  
+        -> read_fortune
+    
