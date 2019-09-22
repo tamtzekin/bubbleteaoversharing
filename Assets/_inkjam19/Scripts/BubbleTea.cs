@@ -48,22 +48,41 @@ public class BubbleTea : MonoBehaviour
 			lidObject.SetActive(false);
 		}
 		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
-		liquidRenderer.material.SetColor("_Tint", teaColor);
-
-		foreach(Ingredient ingredient in ingredients)
-		{
-			foreach(IngredientGroup ingredientGroup in ingredientGroups)
-			{
-				if(ingredientGroup.ingredient == ingredient)
-				{
-					ingredientGroup.gameObject.SetActive(true);
-				}
-			}
-		}
+        SetTeaColor(teaColor);
+        updateIngredients();
 	}
 
 	void Update()
 	{
 		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
 	}
+
+    void updateIngredients()
+    {
+        foreach (Ingredient ingredient in ingredients)
+        {
+            foreach (IngredientGroup ingredientGroup in ingredientGroups)
+            {
+                if (ingredientGroup.ingredient == ingredient)
+                {
+                    ingredientGroup.gameObject.SetActive(true);
+                } 
+            }
+        }
+    }
+
+    public void SetTeaColor(Color color)
+    {
+        teaColor = color;
+        liquidRenderer.material.SetColor("_Tint", teaColor);
+    }
+
+    public void AddIngredient(Ingredient ingredient)
+    {
+        if (!ingredients.Contains(ingredient))
+        {
+            ingredients.Add(ingredient);
+            updateIngredients();
+        }
+    }
 }

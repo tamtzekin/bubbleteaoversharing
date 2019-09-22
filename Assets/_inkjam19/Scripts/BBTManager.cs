@@ -6,21 +6,33 @@ using UnityEngine.UI;
 public class BBTManager : MonoBehaviour {
     [SerializeField]
     VNManager vnManager;
-    CameraDirector cameraDirector;
+    [SerializeField]
+    BubbleTea bubbleTea;
+    [Header("Boba Recipe")]
     [SerializeField]
     BubbleTeaRecipe recipe;
-    [SerializeField]
     List<Ingredient> availableIngredients;
-    [SerializeField]
-    int selectedIngredient = 0;
+    [Header("UI")]
+    int selectedIngredient;
     int SelectedIngredient {
         get { return selectedIngredient; }
-        set { if (value < recipe.Ingredients.Count)
+        set {
+            if (value < recipe.Ingredients.Count)
             {
                 selectedIngredient = value;
+                assignToppingLetter();
+                toppingName.text = IngredientString();
+                currentTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString() + "_icon");
+                currentTopping.color = new Color(1, 1, 1, 1);
             }
         }
     }
+    [SerializeField]
+    Image currentTopping;
+    [SerializeField]
+    Text assignedLetter;
+    [SerializeField]
+    Text toppingName;
     public int maxStamina;
     public Image staminaBar;
     private int stamina;
@@ -46,6 +58,7 @@ public class BBTManager : MonoBehaviour {
     void LoadIngredients()
     {
         availableIngredients = recipe.Ingredients;
+        SelectedIngredient = 0;
     }
 
     // Update is called once per frame
@@ -53,6 +66,24 @@ public class BBTManager : MonoBehaviour {
         manageInput();
 	}
 
+    //manage what happens with the different toppings
+    void fillToppingWithLetter(KeyCode kc)
+    {
+        if(Input.GetKey(kc))
+        {
+            if (IngredientString() == "Ice" || IngredientString() == "Sugar")
+            {
+                //do the hold thing
+                Debug.Log("ADD " + IngredientString());
+            }
+            else
+            {
+                bubbleTea.AddIngredient(availableIngredients[SelectedIngredient]);
+            }
+        }
+    }
+
+    //manage the keyboard input
     void manageInput()
     {
         if (Input.GetKeyUp(KeyCode.A))
@@ -65,64 +96,34 @@ public class BBTManager : MonoBehaviour {
         switch (SelectedIngredient)
         {
             case 0:
-                if(Input.GetKey(KeyCode.Q))
-                {
-                    //fill with ingredient 0
-                }
+                fillToppingWithLetter(KeyCode.Q);
                 break;
             case 1:
-                if (Input.GetKey(KeyCode.W))
-                {
-                    //fill with ingredient 1
-                }
+                fillToppingWithLetter(KeyCode.W);
                 break;
             case 2:
-                if (Input.GetKey(KeyCode.E))
-                {
-                    //fill with ingredient 2
-                }
+                fillToppingWithLetter(KeyCode.E);
                 break;
             case 3:
-                if (Input.GetKey(KeyCode.R))
-                {
-                    //fill with ingredient 3
-                }
+                fillToppingWithLetter(KeyCode.R);
                 break;
             case 4:
-                if (Input.GetKey(KeyCode.T))
-                {
-                    //fill with ingredient 4
-                }
+                fillToppingWithLetter(KeyCode.T);
                 break;
             case 5:
-                if (Input.GetKey(KeyCode.Y))
-                {
-                    //fill with ingredient 5
-                }
+                fillToppingWithLetter(KeyCode.Y);
                 break;
             case 6:
-                if (Input.GetKey(KeyCode.U))
-                {
-                    //fill with ingredient 6
-                }
+                fillToppingWithLetter(KeyCode.U);
                 break;
             case 7:
-                if (Input.GetKey(KeyCode.I))
-                {
-                    //fill with ingredient 7
-                }
+                fillToppingWithLetter(KeyCode.I);
                 break;
             case 8:
-                if (Input.GetKey(KeyCode.O))
-                {
-                    //fill with ingredient 8
-                }
+                fillToppingWithLetter(KeyCode.O);
                 break;
             case 9:
-                if (Input.GetKey(KeyCode.P))
-                {
-                    //fill with ingredient 9
-                }
+                fillToppingWithLetter(KeyCode.P);
                 break;
         }
 
@@ -166,5 +167,52 @@ public class BBTManager : MonoBehaviour {
         {
             SelectedIngredient = 9;
         }
+    }
+
+    //Display correct letter for selected ingredient
+    void assignToppingLetter()
+    {
+        switch (SelectedIngredient)
+        {
+            case 0:
+                assignedLetter.text = "Q";
+                break;
+            case 1:
+                assignedLetter.text = "W";
+                break;
+            case 2:
+                assignedLetter.text = "E";
+                break;
+            case 3:
+                assignedLetter.text = "R";
+                break;
+            case 4:
+                assignedLetter.text = "T";
+                break;
+            case 5:
+                assignedLetter.text = "Y";
+                break;
+            case 6:
+                assignedLetter.text = "U";
+                break;
+            case 7:
+                assignedLetter.text = "I";
+                break;
+            case 8:
+                assignedLetter.text = "O";
+                break;
+            case 9:
+                assignedLetter.text = "P";
+                break;
+        }
+    }
+
+    //extract string from Ingredient class
+    string IngredientString()
+    {
+        string s = "";
+        s += availableIngredients[SelectedIngredient];
+        s = s.Replace(" (Ingredient)", "");
+        return s;
     }
 }
