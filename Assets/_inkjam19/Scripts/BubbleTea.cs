@@ -6,14 +6,33 @@ public class BubbleTea : MonoBehaviour
 {
 	[Header("Boba Appearance")]
 	[SerializeField]
-	bool strawIn = true;
-
-	[SerializeField]
-	bool lidOn = true;
+	bool strawIn = false;
+    bool StrawIn
+    {
+        get { return strawIn; }
+        set
+        {
+            strawObject.SetActive(value);
+        }
+    }
+    [SerializeField]
+	bool lidOn = false;
+    bool LidOn
+    {
+        get { return lidOn; }
+        set
+        {
+            lidObject.SetActive(value);
+        }
+    }
 
 	[Range(0, 1)]
 	[SerializeField]
 	float fillLevel = 1.0f;
+    public float FillLevel
+    {
+        get { return fillLevel; }
+    }
 
 	[SerializeField]
 	Color teaColor;
@@ -36,17 +55,13 @@ public class BubbleTea : MonoBehaviour
 	[SerializeField]
 	IngredientGroup[] ingredientGroups;
 
-	void Start()
-	{
-		if(!strawIn)
-		{
-			strawObject.SetActive(false);
-		}
+    [SerializeField]
+    List<IngredientScore> ingredientScores;
 
-		if (!lidOn)
-		{
-			lidObject.SetActive(false);
-		}
+    void Start()
+	{
+	    strawObject.SetActive(StrawIn);
+		lidObject.SetActive(LidOn);
 		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
         SetTeaColor(teaColor);
         updateIngredients();
@@ -75,6 +90,13 @@ public class BubbleTea : MonoBehaviour
     {
         teaColor = color;
         liquidRenderer.material.SetColor("_Tint", teaColor);
+        liquidRenderer.material.SetColor("_TopColor", teaColor);
+    }
+
+    public void AddMilk(float milkIncrement)
+    {
+        teaColor = Color.Lerp(teaColor, Color.white, milkIncrement);
+        liquidRenderer.material.SetColor("_TopColor", teaColor);
     }
 
     public void AddIngredient(Ingredient ingredient)
@@ -84,5 +106,39 @@ public class BubbleTea : MonoBehaviour
             ingredients.Add(ingredient);
             updateIngredients();
         }
+    }
+
+    public void AddTea(float speed)
+    {
+        fillLevel += speed * Time.deltaTime;
+    }
+
+    public void SealDrink()
+    {
+        LidOn = true;
+    }
+
+    public void InsertStraw()
+    {
+        StrawIn = true;
+    }
+
+    public void InitIngredientScores(List<IngredientScore> iScores)
+    {
+        ingredientScores = iScores;
+        foreach (IngredientScore iS in iScores)
+        {
+            iS.score = 0;
+        }
+    }
+
+    public int GetIngredientScore(int index)
+    {
+        return ingredientScores[index].score;
+    }
+
+    public void modIngredientScore(int index, int score)
+    {
+        ingredientScores[index].score = Mathf.Clamp(score, 0, 4);
     }
 }

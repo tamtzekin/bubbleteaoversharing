@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class IngredientScore
-{
-    public Ingredient ingredient;
-    [Range(0, 4)]
-    public int correctScore;
-}
-
 public class BubbleTeaRecipe : MonoBehaviour
 {
     [Header("Boba Properties")]
@@ -17,9 +9,11 @@ public class BubbleTeaRecipe : MonoBehaviour
     string teaName;
     [SerializeField]
     List<IngredientScore> ingredientScores;
-    [SerializeField]
-    Color teaColor;
-
+    public List<IngredientScore> IngredientScores
+    {
+        get { return ingredientScores; }
+        set { ingredientScores = value; }
+    }
     //returns all ingredients in recipe
     public List<Ingredient> Ingredients {
         get {
@@ -29,5 +23,11 @@ public class BubbleTeaRecipe : MonoBehaviour
                 temp.Add(ingScore.ingredient);
             }
             return temp; }
+    }
+    [SerializeField]
+    Color teaColor;
+    public Color TeaColor
+    {
+        get { return teaColor; }
     }
 }

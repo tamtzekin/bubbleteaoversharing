@@ -12,9 +12,9 @@ public class BBTManager : MonoBehaviour {
     [SerializeField]
     BubbleTeaRecipe recipe;
     List<Ingredient> availableIngredients;
-    [Header("UI")]
+
     int selectedIngredient = -1;
-    int SelectedIngredient {
+    int SelectedIngredientIndex {
         get { return selectedIngredient; }
         set {
             if (value != selectedIngredient)
@@ -22,20 +22,25 @@ public class BBTManager : MonoBehaviour {
                 if (value < recipe.Ingredients.Count)
                 {
                     selectedIngredient = value;
-                    assignToppingLetter();
-                    toppingName.text = IngredientString();
-                    currentTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString() + "_icon");
-                    currentTopping.color = new Color(1, 1, 1, 1);
+                    updateToppingUI();
+                    updateCurrentTopping();
                 }
             }
         }
     }
+    [Header("UI - Toppings")]
+    [SerializeField]
+    Image prevTopping;
     [SerializeField]
     Image currentTopping;
+    [SerializeField]
+    Image nextTopping;
     [SerializeField]
     Text assignedLetter;
     [SerializeField]
     Text toppingName;
+
+    [Header("UI - Stamina")]
     public int maxStamina;
     public Image staminaBar;
     private int stamina;
@@ -46,7 +51,11 @@ public class BBTManager : MonoBehaviour {
             UpdateStaminaBar();
         }
     }
-    KeyCode[] keyCodes;
+    [Header("Mods")]
+    public float teaFillSpeed;
+    public float ingredientTimerIncrement;
+    float ingredientTimer;
+    KeyCode[] ingredientKeyCodes;
 
 	// Use this for initialization
 	void Start () {
@@ -56,17 +65,17 @@ public class BBTManager : MonoBehaviour {
 
     void initKeyCodes()
     {
-        keyCodes = new KeyCode[10];
-        keyCodes[0] = KeyCode.Q;
-        keyCodes[1] = KeyCode.W;
-        keyCodes[2] = KeyCode.E;
-        keyCodes[3] = KeyCode.R;
-        keyCodes[4] = KeyCode.T;
-        keyCodes[5] = KeyCode.Y;
-        keyCodes[6] = KeyCode.U;
-        keyCodes[7] = KeyCode.I;
-        keyCodes[8] = KeyCode.O;
-        keyCodes[9] = KeyCode.P;
+        ingredientKeyCodes = new KeyCode[10];
+        ingredientKeyCodes[0] = KeyCode.Q;
+        ingredientKeyCodes[1] = KeyCode.W;
+        ingredientKeyCodes[2] = KeyCode.E;
+        ingredientKeyCodes[3] = KeyCode.R;
+        ingredientKeyCodes[4] = KeyCode.T;
+        ingredientKeyCodes[5] = KeyCode.Y;
+        ingredientKeyCodes[6] = KeyCode.U;
+        ingredientKeyCodes[7] = KeyCode.I;
+        ingredientKeyCodes[8] = KeyCode.O;
+        ingredientKeyCodes[9] = KeyCode.P;
     }
 
     void UpdateStaminaBar()
@@ -78,7 +87,9 @@ public class BBTManager : MonoBehaviour {
     void LoadIngredients()
     {
         availableIngredients = recipe.Ingredients;
-        SelectedIngredient = 0;
+        bubbleTea.SetTeaColor(recipe.TeaColor);
+        bubbleTea.InitIngredientScores(recipe.IngredientScores);
+        SelectedIngredientIndex = 0;
     }
 
     // Update is called once per frame
@@ -91,14 +102,40 @@ public class BBTManager : MonoBehaviour {
     {
         if(Input.GetKey(kc))
         {
-            if (IngredientString() == "Ice" || IngredientString() == "Sugar" || IngredientString() == "Tea")
+            if (IngredientString(SelectedIngredientIndex) == "Ice" || IngredientString(SelectedIngredientIndex) == "Sugar")
             {
-                //do the hold thing
-                Debug.Log("ADD " + IngredientString());
+                ingredientTimer += Time.deltaTime;
+                if(ingredientTimer >= ingredientTimerIncrement)
+                {
+                    bubbleTea.modIngredientScore(SelectedIngredientIndex, bubbleTea.GetIngredientScore(SelectedIngredientIndex) + 1);
+                    ingredientTimer = 0;
+                }
+            }
+            else if (IngredientString(SelectedIngredientIndex) == "Tea")
+            {
+                //increase cup fill
+                bubbleTea.AddTea(teaFillSpeed);
+                Debug.Log(bubbleTea.FillLevel);
+                bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
+            }
+            else if (IngredientString(SelectedIngredientIndex) == "Milk")
+            {
+                //change bubble tea color to white-ish
+                bubbleTea.AddMilk(teaFillSpeed * Time.deltaTime);
             }
             else
             {
-                bubbleTea.AddIngredient(availableIngredients[SelectedIngredient]);
+                bubbleTea.AddIngredient(availableIngredients[SelectedIngredientIndex]);
+                bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
+            }
+        }
+        if(Input.GetKeyUp(kc))
+        {
+            if (IngredientString(SelectedIngredientIndex) == "Milk")
+            {
+                //complete the milk addition regardless of time held
+                bubbleTea.AddMilk(1f);
+                bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
             }
         }
     }
@@ -113,17 +150,17 @@ public class BBTManager : MonoBehaviour {
             LoadIngredients();
         }
         //depending which ingredient is selected fill it
-        if (SelectedIngredient >= 0)
+        if (SelectedIngredientIndex >= 0)
         {
-            fillToppingWithLetter(keyCodes[SelectedIngredient]);
+            fillToppingWithLetter(ingredientKeyCodes[SelectedIngredientIndex]);
         }
 
         //switch between selected ingredients with QWERTY keys
-        for (int i = 0; i < keyCodes.Length; i++)
+        for (int i = 0; i < ingredientKeyCodes.Length; i++)
         {
-            if(Input.GetKeyUp(keyCodes[i]))
+            if(Input.GetKeyUp(ingredientKeyCodes[i]))
             {
-                SelectedIngredient = i;
+                SelectedIngredientIndex = i;
             }
         }
     }
@@ -131,15 +168,58 @@ public class BBTManager : MonoBehaviour {
     //Display correct letter for selected ingredient
     void assignToppingLetter()
     {
-        assignedLetter.text = keyCodes[SelectedIngredient].ToString();
+        assignedLetter.text = ingredientKeyCodes[SelectedIngredientIndex].ToString();
     }
 
-    //extract string from Ingredient class
-    string IngredientString()
+    //extract string from Ingredient class with associated index i
+    string IngredientString(int i)
     {
         string s = "";
-        s += availableIngredients[SelectedIngredient];
+        s += availableIngredients[i];
         s = s.Replace(" (Ingredient)", "");
         return s;
+    }
+
+    void updateToppingUI()
+    {
+        updatePrevTopping();
+        updateCurrentTopping();
+        updateNextTopping();
+    }
+
+    void updatePrevTopping()
+    {
+        if (SelectedIngredientIndex >= 1)
+        {
+            prevTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString(SelectedIngredientIndex - 1) + "_icon");
+            prevTopping.color = Color.white;
+        }
+        else
+        {
+            prevTopping.sprite = null;
+            prevTopping.color = Color.clear;
+        }
+    }
+
+    void updateNextTopping()
+    {
+        if (SelectedIngredientIndex < availableIngredients.Count - 1)
+        {
+            nextTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString(SelectedIngredientIndex + 1) + "_icon");
+            nextTopping.color = Color.white;
+        }
+        else
+        {
+            nextTopping.sprite = null;
+            nextTopping.color = Color.clear;
+        }
+    }
+
+    void updateCurrentTopping()
+    {
+        assignToppingLetter();
+        toppingName.text = IngredientString(SelectedIngredientIndex);
+        currentTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString(SelectedIngredientIndex) + "_icon");
+        currentTopping.color = Color.white;
     }
 }
