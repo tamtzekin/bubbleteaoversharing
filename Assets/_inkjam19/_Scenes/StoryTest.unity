@@ -1286,6 +1286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0e0482fee4a84092abd95abca1265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  main: {fileID: 1855143139}
   inkJSONAsset: {fileID: 4900000, guid: f3d671c091b552a469e7656f9d6a142d, type: 3}
   buttonPrefab: {fileID: 11455116, guid: 7c93bd12a6259904fb72d52ae72c4654, type: 2}
   choiceHolder: {fileID: 1502897297}

@@ -5,6 +5,9 @@ using Ink.Runtime;
 public class VNManager : MonoBehaviour
 {
 	[SerializeField]
+	Main main;
+
+	[SerializeField]
 	private TextAsset inkJSONAsset;
 	private Story story;
 
@@ -116,9 +119,14 @@ public class VNManager : MonoBehaviour
 				});
 			}
 		}
-		// If we've read all the content and there's no choices, the story is finished!
 		else
-		{
+		{// If we've read all the content and there's no choices, the story is finished!
+			Button choice = CreateChoiceView("THE END");
+			choice.onClick.AddListener(delegate
+			{
+				RemoveChildren();
+				main.Credits();
+			});
 		}
 	}
 
