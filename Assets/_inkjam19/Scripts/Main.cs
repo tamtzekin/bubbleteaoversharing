@@ -19,8 +19,13 @@ public class Main : MonoBehaviour
 	[SerializeField]
 	GameObject credits;
 
+	enum State { MainMenu, Credits, Game};
+
+	State currentState;
+
 	void Start()
 	{
+		currentState = State.MainMenu;
 		menuCanvas.gameObject.SetActive(false);
 		vnManager.gameObject.SetActive(false);
 		credits.SetActive(false);
@@ -29,16 +34,19 @@ public class Main : MonoBehaviour
 
 	void Update ()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape))
+		if (currentState == State.Game)
 		{
-			vnManager.gameObject.SetActive(!vnManager.gameObject.activeSelf);
-			if(!vnManager.gameObject.activeSelf)
+			if (Input.GetKeyDown(KeyCode.Escape))
 			{
-				menuCanvas.gameObject.SetActive(true);
-			}
-			else
-			{
-				menuCanvas.gameObject.SetActive(false);
+				vnManager.gameObject.SetActive(!vnManager.gameObject.activeSelf);
+				if (!vnManager.gameObject.activeSelf)
+				{
+					menuCanvas.gameObject.SetActive(true);
+				}
+				else
+				{
+					menuCanvas.gameObject.SetActive(false);
+				}
 			}
 		}
 	}
@@ -49,6 +57,7 @@ public class Main : MonoBehaviour
 		cameraDirector.ChangeCamera("Main Camera");
 		vnManager.gameObject.SetActive(true);
 		vnManager.StartStory();
+		currentState = State.Game;
 	}
 
 	public void Return()
