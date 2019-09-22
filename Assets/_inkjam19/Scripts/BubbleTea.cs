@@ -10,6 +10,10 @@ public class BubbleTea : MonoBehaviour
 	[SerializeField]
 	bool lidOn = true;
 
+	[Range(0, 1)]
+	[SerializeField]
+	float fillLevel = 1.0f;
+
 	[Header("Submodels")]
 
 	[SerializeField]
@@ -17,6 +21,9 @@ public class BubbleTea : MonoBehaviour
 
 	[SerializeField]
 	GameObject lidObject;
+
+	[SerializeField]
+	MeshRenderer liquidRenderer;
 
 	void Start()
 	{
@@ -29,5 +36,11 @@ public class BubbleTea : MonoBehaviour
 		{
 			lidObject.SetActive(false);
 		}
+		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
+	}
+
+	void Update()
+	{
+		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
 	}
 }
