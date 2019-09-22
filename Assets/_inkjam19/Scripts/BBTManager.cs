@@ -13,7 +13,7 @@ public class BBTManager : MonoBehaviour {
     BubbleTeaRecipe recipe;
     List<Ingredient> availableIngredients;
     [Header("UI")]
-    int selectedIngredient;
+    int selectedIngredient = -1;
     int SelectedIngredient {
         get { return selectedIngredient; }
         set {
@@ -46,11 +46,28 @@ public class BBTManager : MonoBehaviour {
             UpdateStaminaBar();
         }
     }
+    KeyCode[] keyCodes;
 
 	// Use this for initialization
 	void Start () {
         stamina = maxStamina;
+        initKeyCodes();
 	}
+
+    void initKeyCodes()
+    {
+        keyCodes = new KeyCode[10];
+        keyCodes[0] = KeyCode.Q;
+        keyCodes[1] = KeyCode.W;
+        keyCodes[2] = KeyCode.E;
+        keyCodes[3] = KeyCode.R;
+        keyCodes[4] = KeyCode.T;
+        keyCodes[5] = KeyCode.Y;
+        keyCodes[6] = KeyCode.U;
+        keyCodes[7] = KeyCode.I;
+        keyCodes[8] = KeyCode.O;
+        keyCodes[9] = KeyCode.P;
+    }
 
     void UpdateStaminaBar()
     {
@@ -74,7 +91,7 @@ public class BBTManager : MonoBehaviour {
     {
         if(Input.GetKey(kc))
         {
-            if (IngredientString() == "Ice" || IngredientString() == "Sugar")
+            if (IngredientString() == "Ice" || IngredientString() == "Sugar" || IngredientString() == "Tea")
             {
                 //do the hold thing
                 Debug.Log("ADD " + IngredientString());
@@ -95,119 +112,26 @@ public class BBTManager : MonoBehaviour {
             Stamina--;
             LoadIngredients();
         }
-
-        switch (SelectedIngredient)
+        //depending which ingredient is selected fill it
+        if (SelectedIngredient >= 0)
         {
-            case 0:
-                fillToppingWithLetter(KeyCode.Q);
-                break;
-            case 1:
-                fillToppingWithLetter(KeyCode.W);
-                break;
-            case 2:
-                fillToppingWithLetter(KeyCode.E);
-                break;
-            case 3:
-                fillToppingWithLetter(KeyCode.R);
-                break;
-            case 4:
-                fillToppingWithLetter(KeyCode.T);
-                break;
-            case 5:
-                fillToppingWithLetter(KeyCode.Y);
-                break;
-            case 6:
-                fillToppingWithLetter(KeyCode.U);
-                break;
-            case 7:
-                fillToppingWithLetter(KeyCode.I);
-                break;
-            case 8:
-                fillToppingWithLetter(KeyCode.O);
-                break;
-            case 9:
-                fillToppingWithLetter(KeyCode.P);
-                break;
+            fillToppingWithLetter(keyCodes[SelectedIngredient]);
         }
 
-        if (Input.GetKeyUp(KeyCode.Q))
+        //switch between selected ingredients with QWERTY keys
+        for (int i = 0; i < keyCodes.Length; i++)
         {
-            SelectedIngredient = 0;
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            SelectedIngredient = 1;
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            SelectedIngredient = 2;
-        }
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            SelectedIngredient = 3;      
-        }
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-            SelectedIngredient = 4;
-        }
-        if (Input.GetKeyUp(KeyCode.Y))
-        {
-            SelectedIngredient = 5;
-        }
-        if (Input.GetKeyUp(KeyCode.U))
-        {
-            SelectedIngredient = 6;
-        }
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            SelectedIngredient = 7;
-        }
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            SelectedIngredient = 8;
-        }
-        if (Input.GetKeyUp(KeyCode.P))
-        {
-            SelectedIngredient = 9;
+            if(Input.GetKeyUp(keyCodes[i]))
+            {
+                SelectedIngredient = i;
+            }
         }
     }
 
     //Display correct letter for selected ingredient
     void assignToppingLetter()
     {
-        switch (SelectedIngredient)
-        {
-            case 0:
-                assignedLetter.text = "Q";
-                break;
-            case 1:
-                assignedLetter.text = "W";
-                break;
-            case 2:
-                assignedLetter.text = "E";
-                break;
-            case 3:
-                assignedLetter.text = "R";
-                break;
-            case 4:
-                assignedLetter.text = "T";
-                break;
-            case 5:
-                assignedLetter.text = "Y";
-                break;
-            case 6:
-                assignedLetter.text = "U";
-                break;
-            case 7:
-                assignedLetter.text = "I";
-                break;
-            case 8:
-                assignedLetter.text = "O";
-                break;
-            case 9:
-                assignedLetter.text = "P";
-                break;
-        }
+        assignedLetter.text = keyCodes[SelectedIngredient].ToString();
     }
 
     //extract string from Ingredient class
