@@ -359,4 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strawIn: 1
+  lidOn: 1
   strawObject: {fileID: 1023578829255396}
+  lidObject: {fileID: 1491239462156484}
