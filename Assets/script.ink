@@ -7,16 +7,19 @@ www.inklestudios.com
 */
 
 // Debug mode - skip to different sections of the story
-VAR DEBUG = false
+VAR DEBUG = true
 {DEBUG:
 	IN DEBUG MODE!
 	*	[Beginning...]	-> intro
+    *   [Prinita] -> customer_one
+    *   [Nam] -> customer_two
+    *   [Valeria] -> customer___three
 - else:
 	// First diversion: where do we begin?
  -> intro
 }
 
-// Function to alter states
+// Function to alter states and status of characters 
 === function stats(ref x, y) ===
 	~ x = x + y
 
