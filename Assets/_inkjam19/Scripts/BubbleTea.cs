@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BubbleTea : MonoBehaviour
 {
+	[Header("Boba Properties")]
 	[SerializeField]
 	bool strawIn = true;
 
@@ -13,6 +14,9 @@ public class BubbleTea : MonoBehaviour
 	[Range(0, 1)]
 	[SerializeField]
 	float fillLevel = 1.0f;
+
+	[SerializeField]
+	Color teaColor;
 
 	[Header("Submodels")]
 
@@ -37,6 +41,7 @@ public class BubbleTea : MonoBehaviour
 			lidObject.SetActive(false);
 		}
 		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
+		liquidRenderer.material.SetColor("_Tint", teaColor);
 	}
 
 	void Update()
