@@ -92,10 +92,13 @@ public class VNManager : MonoBehaviour
 					text = "";// Skip this line
 				}
 			}
-			while (text.Length == 0);
+			while (text.Length == 0 && story.canContinue);
 			// Display the text on screen!
-			CreateContentView(text);
-			return;
+			if ((text.Length > 0))
+			{
+				CreateContentView(text);
+				return;
+			}
 		}
 
 		// Display all the choices, if there are any!
