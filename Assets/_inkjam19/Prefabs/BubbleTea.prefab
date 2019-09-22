@@ -578,6 +578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4889642004142656}
+  - component: {fileID: 114622812706089584}
   m_Layer: 0
   m_Name: RedBeanGroup
   m_TagString: Untagged
@@ -610,6 +611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4494120487984100}
+  - component: {fileID: 114676180221718660}
   m_Layer: 0
   m_Name: CoconutJellyGroup
   m_TagString: Untagged
@@ -1388,6 +1390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4801303477767650}
+  - component: {fileID: 114081166030568806}
   m_Layer: 0
   m_Name: PearlGroup
   m_TagString: Untagged
@@ -1437,6 +1440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4007221097154178}
+  - component: {fileID: 114702066744246654}
   m_Layer: 0
   m_Name: LycheeJellyGroup
   m_TagString: Untagged
@@ -2148,6 +2152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4743324255314960}
+  - component: {fileID: 114294152049283072}
   m_Layer: 0
   m_Name: HerbalJellyGroup
   m_TagString: Untagged
@@ -2198,6 +2203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4871527470813812}
+  - component: {fileID: 114752065231707910}
   m_Layer: 0
   m_Name: AloeVeraGroup
   m_TagString: Untagged
@@ -10420,6 +10426,78 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1577199135454434}
   m_Mesh: {fileID: 4300014, guid: 5db39708055f02243a92647ea9f9b7da, type: 3}
+--- !u!114 &114081166030568806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553223618372110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd31c8a477ad641898c281df5926bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 203fccb53d77ffa478670bd50418299f, type: 2}
+--- !u!114 &114294152049283072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838355109410132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd31c8a477ad641898c281df5926bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 46ba3a4d60117314089380672227f4d5, type: 2}
+--- !u!114 &114622812706089584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1216629109325042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd31c8a477ad641898c281df5926bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: bb5ac5fbe64eec34eacb8304ab9dd282, type: 2}
+--- !u!114 &114676180221718660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232716986442440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd31c8a477ad641898c281df5926bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: d8f95e441dec99243a54fa13669e17ab, type: 2}
+--- !u!114 &114702066744246654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1575683077139408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd31c8a477ad641898c281df5926bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 0f288a32216b8e74c93a155cf24352a7, type: 2}
+--- !u!114 &114752065231707910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1856495497499090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd31c8a477ad641898c281df5926bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: b8b9b64dc49431442a0f39ec837c878e, type: 2}
 --- !u!114 &114898058030970054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10445,10 +10523,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2e621f78ebd6042873d9f1fa74f035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strawIn: 1
+  strawIn: 0
   lidOn: 1
   fillLevel: 1
   teaColor: {r: 1, g: 1, b: 1, a: 1}
+  ingredients: []
   strawObject: {fileID: 1023578829255396}
   lidObject: {fileID: 1491239462156484}
   liquidRenderer: {fileID: 23768397018235544}
+  ingredientGroups:
+  - {fileID: 114752065231707910}
+  - {fileID: 114294152049283072}
+  - {fileID: 114676180221718660}
+  - {fileID: 114702066744246654}
+  - {fileID: 114081166030568806}
+  - {fileID: 114622812706089584}

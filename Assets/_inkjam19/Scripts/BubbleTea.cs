@@ -33,6 +33,9 @@ public class BubbleTea : MonoBehaviour
 	[SerializeField]
 	MeshRenderer liquidRenderer;
 
+	[SerializeField]
+	IngredientGroup[] ingredientGroups;
+
 	void Start()
 	{
 		if(!strawIn)
@@ -46,6 +49,17 @@ public class BubbleTea : MonoBehaviour
 		}
 		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
 		liquidRenderer.material.SetColor("_Tint", teaColor);
+
+		foreach(Ingredient ingredient in ingredients)
+		{
+			foreach(IngredientGroup ingredientGroup in ingredientGroups)
+			{
+				if(ingredientGroup.ingredient == ingredient)
+				{
+					ingredientGroup.gameObject.SetActive(true);
+				}
+			}
+		}
 	}
 
 	void Update()
