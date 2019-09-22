@@ -314,28 +314,28 @@ VAR taro = false
         *   [What's up?] What's bothering you?
         *   [(Just make the tea)]
     -   Nam: "To be honest, I just don't think I'm going to make target this week." 
-    -   Nam: "You see, I work as a financial evangelist. For a fortune empowerment company. But don't call it a startup. We're not just that."
+    -   Nam: "You see, I work as an investment evangelist. For a fortune empowerment company. But don't call it a startup. We're not just that."
     -   Nam: "My job is to convince young people, in primary schools mostly, to get ahead on their investment portfolio while they're young."
     -   Nam: "The company has a deal with each school to send their evangelists in, so the kids can remember a friendly face whenever they see our logo."
-        *   [That's admirable] Getting them on the right track to success. It's what we all need in life. 
-        *   [That's a real job?] So you pay schools out to force children to bank with you?
+        *   [That's admirable] Getting them on the right track to success. It's what we all need in life. {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
+        *   [That's a real job?] So you pay schools out to force children to bank with you? {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
     -   Nam: "Exactly. I like to think that I'm doing good work. Keeping our system afloat."
     -   Nam: "Anyway, it's going to be hard signing enough young people for this cycle."
     -   Nam: "My KPI is fifty kids. How do I do it?"
-        *   [Not worth it] Look, Nam. Can I be honest? These kids don't need financial advice. They don't need a credit card.
-        Let them live, wild and free, like kids are meant to.
+        *   [Not worth it] Look, Nam. Can I be honest? These kids don't need financial advice. They don't need a credit card. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+        Let them live, wild and free, like kids are meant to. 
         Nam: "You're probably right. Money truly is evil..."
         Nam: "I'm going to burn all my money and move to Nepal!!"
-            ** [Do it.] Mindfulness is immaterial. You won't need it. Spark the flame.
+            ** [Do it.] Mindfulness is immaterial. You won't need it. Spark the flame. {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
             -> read_fortune
-            ** [WHAT??] ...maybe just keep a savings account, for backup, just in case?
+            ** [WHAT??] ...maybe just keep a savings account, for backup, just in case? {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
             -> read_fortune
         *   [You can do it] You're doing important work. These kids need to know how to manage their wealth, before it gets out of hand.
-        Every child needs financial independence. The market defines our future. 
+        Every child needs financial independence. The market defines our future. {stats(customer_satisfaction, 2)} {stats(tiredness, 2)}
         Nam: "Thank you. I needed to hear that. I know what I'm doing is critical. Wealth is everything!"
-            **  [That's right] The market is our god. Let it guide you like a flame in the night.
+            **  [That's right] The market is our god. Let it guide you like a flame in the night. {stats(customer_satisfaction, 2)} {stats(tiredness, 3)}
             -> read_fortune
-            ** [I think I was wrong] Wait, maybe I got this wrong. This is not the path you want to take!! 
+            ** [I think I was wrong] Wait, maybe I got this wrong. This is not the path you want to take!! {stats(customer_satisfaction, -3)} {stats(tiredness, 2)}
             -> read_fortune
 
     = read_fortune
