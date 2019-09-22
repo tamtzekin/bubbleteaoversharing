@@ -116,7 +116,7 @@ public class BBTManager : MonoBehaviour {
                         levelsText.transform.parent = bubbleTea.gameObject.transform;
                         levelsText.GetComponent<RectTransform>().localPosition = new Vector3(0, 100, -5);
                         levelsText.GetComponent<RectTransform>().localRotation = new Quaternion(0, 0, 0, 1);
-                        levelsText.GetComponent<TextMeshPro>().text = "+" + (newScore * 25) + "%";
+                        levelsText.GetComponent<TextMeshPro>().text = (newScore * 25) + "%";
                     }
                     ingredientTimer = 0;
                 }
@@ -125,8 +125,7 @@ public class BBTManager : MonoBehaviour {
             {
                 //increase cup fill
                 bubbleTea.AddTea(teaFillSpeed);
-                Debug.Log(bubbleTea.FillLevel);
-                bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
+                bubbleTea.modIngredientScore(SelectedIngredientIndex, (int)(bubbleTea.FillLevel * 4f));
             }
             else if (IngredientString(SelectedIngredientIndex) == "Milk")
             {
@@ -147,6 +146,7 @@ public class BBTManager : MonoBehaviour {
                 bubbleTea.AddMilk(1f);
                 bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
             }
+            Stamina--;
         }
     }
 
