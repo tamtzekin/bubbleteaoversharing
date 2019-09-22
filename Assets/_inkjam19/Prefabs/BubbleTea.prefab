@@ -70,6 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4885671911370336}
+  - component: {fileID: 114938620619921008}
   m_Layer: 0
   m_Name: BubbleTea
   m_TagString: Untagged
@@ -346,3 +347,16 @@ MonoBehaviour:
   MaxWobble: 0.03
   WobbleSpeed: 1
   Recovery: 1
+--- !u!114 &114938620619921008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1816711311264700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2e621f78ebd6042873d9f1fa74f035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strawIn: 1
+  strawObject: {fileID: 1023578829255396}
