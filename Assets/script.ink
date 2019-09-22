@@ -1,22 +1,30 @@
 /*
-
 For InkJam 2019
 Made with Ink by Inkle
 www.inklestudios.com
 
+James McHugh @jemztones
+Nathan Ratsavanah
+Jay Tan
+Justin Tam @tamtzekin
+George Mak @dinopokey
+
 */
 
 // Debug mode - skip to different sections of the story
-VAR DEBUG = false
+VAR DEBUG = true
 {DEBUG:
 	IN DEBUG MODE!
 	*	[Beginning...]	-> intro
+    *   [Prinita] -> customer_one
+    *   [Nam] -> customer_two
+    *   [Valeria] -> customer_three
 - else:
 	// First diversion: where do we begin?
  -> intro
 }
 
-// Function to alter states
+// ALter the various states and stats of characters
 === function stats(ref x, y) ===
 	~ x = x + y
 
@@ -161,18 +169,22 @@ VAR taro = false
     -   "I think it's pretty amateur stuff." 
         *   [Support him] You should give it a chance. It'll be a change of pace. {stats(customer_satisfaction, -1)}
         *   [Forget it] Can't he hunt for artists over here instead? {stats(customer_satisfaction, 1)}
+        *   [Do it for yourself] Maybe it's worth starting another life over there. {stats(customer_satisfaction, -1)}
+        Prinita: Uh, it really doesn't sound like my sort of thing.
+
     -   Prinita: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
     -   Prinita: "And the artist is white, too. So it's...a fresh perspective. It's really cultural over there."
     -   Prinita: "What do I tell him?"
         *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there. {stats(customer_satisfaction, -1)}  
         *   [That's...exploitative] ... 
         Uuuuuuh.......... 
+        *   [Call him out] Tell him it's wrong! You can't get away with that kind of stuff anymore. {stats(customer_satisfaction, 2)}
     -   Prinita: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
-        *   [All for it]    Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
-        -> read_fortune
-        *   [Bad idea]  You're really starting to make this sound like a bad idea. {stats(customer_satisfaction, 1)}
-        -> read_fortune
-        
+        *   [All for it] Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
+        *   [Bad idea] You're really starting to make this sound like a bad idea. 
+        *   [You should interrogate him] What is he going to do, make them paint for food? {stats(customer_satisfaction, 1)}
+    -   -> read_fortune
+
     = read_fortune
     -   Prinita: "Alright." She handed the drink back. "Tell me what they say."
     A little bit of milk slushed about at the bottom. The cup was wet with a few drops of condensation.
@@ -182,6 +194,7 @@ VAR taro = false
     -   Prinita: "Whether I should leave my job and follow my partner to Spain. Or leave them instead."
         *   [Really?] You're sure you want the answer to that?
         *   [Whatever you say] If that's what you want. 
+        *   [Try it] Let's see what the pearls say.
         
     -   I swirled it three times, tipped the leftovers onto a plate on the bench, counted to sixty and let it sit. 
         *   [(Rotate the cup)] I turned it three times, put the straw back in and tilted it so it pointed south.
@@ -189,50 +202,63 @@ VAR taro = false
         *   [(Just get on with the reading)] I just had to get this one done, and then I could be alone again.
         
     -   The pearls had melted but I could make out some shapes. 
-        *   [The curved lines symbolise travel] Two starchy squiggles, stuck to the base of the cup.
+        Two curved lines, flowing in parallel...
+        *   [They mean travel] Two starchy squiggles, stuck to the base of the cup.
         See the parallel lines? They symbolise travel, and also unity. {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
                     
-        * [The curved lines mean rough waters] Two starchy squiggles, stuck to the base of the cup.
+        *   [They symbolise rough waters] Two starchy squiggles, stuck to the base of the cup.
         Those two lines, they mean you're going to travel somewhere, but it's going to be really rough. I would reconsider. {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
         
-        - The little arrow. Pointing north, but was that good? Or was it supposed to point south?
-        * [The arrow is pointing up] You're going in the right direction. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
-    
-        * [The arrow is pointing down] You're going in the wrong direction, unfortunately. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-        
-        - And the smear of taro mixed with milk in the shape of a cross.
-        *   [It's a target] The 'x' means you're on target. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
-        -> fate_handler_customer_one
-        *   [It's a warning] And the 'x' means you're going in the wrong direction. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
-        -> fate_handler_customer_one
+        *   [They represent unity] You guys are going to be travelling in unison. Your paths will merge like rivers flowing in tandem. 
+        Prinita: "Pfft, that's really hard to believe." {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
 
-= fate_handler_customer_one
-        { 
-            -   not tiredness && customer_satisfaction > 0: It's not that bad. The pearls are just an approximation of your future.
-            I'm not a big believer in anything being exact. 
-            
-            
-            -   else:
-            You've got a lot of bad luck heading your way. I know it's not idea. Some people choose not to look at the pearls in the first place. They'd rather not know.
-            Prinita: "I appreciate the words. Thanks."
-        }
+    -   The little arrow. Pointing north, but was that good? Or was it supposed to point south?
+        *   [Right direction] You're going in the right direction. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
+        Prinita: "I'm not too confident about that, to be totally honest with you."
+
+        *   [Wrong direction] You're going in the wrong direction, unfortunately. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+        Prinita: "Ah, I think I understand what you mean..."
+
+        *   [Directionless] The arrow is unclear. It could be pointing anywhere. 
+        That's a sign that what you're about to try, you're not really thinking it through. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+        Prinita: "You're right. I'm just acting on an impulse. I should think about what this means for me."
+
+    -   And the smear of taro mixed with milk in the shape of an 'x'.
+        *   [It's a target] The 'x' means you're on target. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
+        Prinita: "Okay...if the pearls say so."
+        *   [It's a mistake] Don't do it! The 'x' means that the decision is just plain wrong. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
+        Prinita: "That makes me feel better."
+        *   [It's a warning] And the 'x' means you're going in the wrong direction. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
+        Prinita: "I'm going to have to think a bit harder about this, is that what you're telling me?"
         
+    -   -> fate_handler_customer_one
+
+    = fate_handler_customer_one
         { 
-            -   tiredness && customer_satisfaction > 0: You should be happy. Things are going okay for you.
-        I was too tired to pay much attention. It took a lot out of me when I read the pearls.
-        Prinita: "Okay. Thanks. They're just stupid pearls anyway. It's pretty stupid, staring at bubble tea and some stale milk."
+            -   not tiredness && customer_satisfaction > 0: 
+            I think the pearls are pretty clear. Don't follow your husband to Brazil. Let him do his little art hunt by himself.
         
-            -   else:
-            I'm really sorry. There's not a lot I can do.
-            I was tired. Reading the pearls took a lot out of me.
-            Prinita: "God, damn it. I shouldn't have even looked. It was always going to screw up either way."
+            -   tiredness && customer_satisfaction > 0:
+            You should be okay. Heed the warning. Think twice about whether you want to follow him over there. 
+            I was too tired to pay much attention. It took a lot out of me when I read the pearls.
+            Prinita: "Okay. Thanks. They're just stupid pearls anyway. It's pretty stupid, staring at bubble tea and some stale milk."
+        
+        -   not tiredness && customer_satisfaction < 0:
+            There's probably something drawing you there that you can't escape. 
+            You're going to end up following him there, but it's going to be rough.
+            Prinita: "I know. I prepared myself for as much. Thanks anyway."
+
+        -   tiredness && customer_satisfaction < 0:
+            I guess you have no choice but to follow him to Brazil.
+            Prinita: "God damn it. I shouldn't have looked. It was going to screw up either way."
             Prinita looked at the cup one last time, as if looking would change things, and left.
         }
-        -> show_final_score_customer_one
+
+    -> show_final_score_customer_one
 
 === show_final_score_customer_one ===
-        FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
-        -> customer_two
+    FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+    -> customer_two
 
 === customer_two === 
     -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please. No ice, heaps of sugar. Cold and large."
@@ -363,13 +389,29 @@ VAR taro = false
     
     -   Squiggles that look like the letter 'm'...
         *   [A fire] I see a fire...not entirely sure it's going to end well. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
-        -> show_final_score_customer_two
         *   [A mountain] I see a mountain. Nepal it is! {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
-        -> show_final_score_customer_two
+    
+    -   -> fate_handler_customer_two
+
+= fate_handler_customer_two
+    { 
+        -   not tiredness && customer_satisfaction > 0:
+        Helllooooo, Nepal! The pearls are in your favour.
+        -   tiredness && customer_satisfaction > 0:
+        Good for you. I guess if yoga's really your thing, then you can go and do it.
+
+        -   not tiredness && customer_satisfaction < 0:
+        Well, if it doesn't work out you can always go back to finance...
+
+        -   tiredness && customer_satisfaction < 0:
+        Ah, well. We're not all cut out to do what we want. 
+
+    }
+    -> show_final_score_customer_two
 
 === show_final_score_customer_two ===
-        FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
-        -> customer_three
+    FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+    -> customer_three
         
 === customer_three ===
     -   Customer: Yeah, hi. Do you do boba?
@@ -439,14 +481,30 @@ VAR taro = false
     
     -   A circle with a dot in the centre—a sun. 
         * [New beginnings] {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
-        -> show_final_score_customer_three
         * [Power] You're destined to be a power couple. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-        -> show_final_score_customer_three
         * [Success] It'll work out for you. Success is in your future. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-        -> show_final_score_customer_three
+    -   -> fate_handler_customer_three
+
+= fate_handler_customer_three
+    { 
+        -   not tiredness && customer_satisfaction > 0:
+        You're going to be the perfect power couple. Gallery openings will fear you. 
+        -   tiredness && customer_satisfaction > 0:
+        People are going to love tagging you in their photos. You'll find someone, for sure.
+
+        -   not tiredness && customer_satisfaction < 0:
+        It's not that bad being alone. You'll have space to, you know, build more shoe sculptures. 
+
+        -   tiredness && customer_satisfaction < 0:
+        Sorry, it just looks like it won't work out for you. Maybe it's worth considering another profession.
+        Yoga, even? 
+
+    }
+-> show_final_score_customer_three
 
 === show_final_score_customer_three ===
         FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+
 -> END
 
 /*small talk template

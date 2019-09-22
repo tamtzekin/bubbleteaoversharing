@@ -19,8 +19,16 @@ public class Main : MonoBehaviour
 	[SerializeField]
 	GameObject credits;
 
+	[SerializeField]
+	GameObject[] creditsObjects;
+
+	enum State { MainMenu, Credits, Game};
+
+	State currentState;
+
 	void Start()
 	{
+		currentState = State.MainMenu;
 		menuCanvas.gameObject.SetActive(false);
 		vnManager.gameObject.SetActive(false);
 		credits.SetActive(false);
@@ -29,16 +37,19 @@ public class Main : MonoBehaviour
 
 	void Update ()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape))
+		if (currentState == State.Game)
 		{
-			vnManager.gameObject.SetActive(!vnManager.gameObject.activeSelf);
-			if(!vnManager.gameObject.activeSelf)
+			if (Input.GetKeyDown(KeyCode.Escape))
 			{
-				menuCanvas.gameObject.SetActive(true);
-			}
-			else
-			{
-				menuCanvas.gameObject.SetActive(false);
+				vnManager.gameObject.SetActive(!vnManager.gameObject.activeSelf);
+				if (!vnManager.gameObject.activeSelf)
+				{
+					menuCanvas.gameObject.SetActive(true);
+				}
+				else
+				{
+					menuCanvas.gameObject.SetActive(false);
+				}
 			}
 		}
 	}
@@ -49,6 +60,33 @@ public class Main : MonoBehaviour
 		cameraDirector.ChangeCamera("Main Camera");
 		vnManager.gameObject.SetActive(true);
 		vnManager.StartStory();
+		currentState = State.Game;
+	}
+
+	public void Credits()
+	{
+		startMenuCanvas.gameObject.SetActive(false);
+		credits.SetActive(true);
+		for (int i = 0; i < creditsObjects.Length; i++)
+		{
+			creditsObjects[i].SetActive(false);
+		}
+		StartCoroutine(CreditsCoroutine());
+	}
+
+	IEnumerator CreditsCoroutine()
+	{
+		for(int i = 0; i < creditsObjects.Length; i++)
+		{
+			creditsObjects[i].SetActive(true);
+			if(i > 0)
+			{
+				creditsObjects[i-1].SetActive(false);
+			}
+			yield return new WaitForSeconds(3f);
+		}
+		credits.SetActive(false);
+		startMenuCanvas.gameObject.SetActive(true);
 	}
 
 	public void Return()
