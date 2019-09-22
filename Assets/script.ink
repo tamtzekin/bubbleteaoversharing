@@ -7,16 +7,19 @@ www.inklestudios.com
 */
 
 // Debug mode - skip to different sections of the story
-VAR DEBUG = false
+VAR DEBUG = true
 {DEBUG:
 	IN DEBUG MODE!
 	*	[Beginning...]	-> intro
+    *   [Prinita] -> customer_one
+    *   [Nam] -> customer_two
+    *   [Valeria] -> customer_three
 - else:
 	// First diversion: where do we begin?
  -> intro
 }
 
-// Function to alter states
+// Function to alter states and status of characters 
 === function stats(ref x, y) ===
 	~ x = x + y
 
@@ -172,12 +175,11 @@ VAR taro = false
         Uuuuuuh.......... 
         *   [Call him out] Tell him it's wrong! You can't get away with that kind of stuff anymore. {stats(customer_satisfaction, 2)}
     -   Prinita: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
-        *   [All for it]    Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
-        -> read_fortune
-        *   [Bad idea]  You're really starting to make this sound like a bad idea. 
-        -> read_fortune
-        *   [Interrogate him] What is he going to do, make them paint for food? {stats(customer_satisfaction, 1)}
-        
+        *   [All for it] Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
+        *   [Bad idea] You're really starting to make this sound like a bad idea. 
+        *   [You should interrogate him] What is he going to do, make them paint for food? {stats(customer_satisfaction, 1)}
+    -   -> read_fortune
+
     = read_fortune
     -   Prinita: "Alright." She handed the drink back. "Tell me what they say."
     A little bit of milk slushed about at the bottom. The cup was wet with a few drops of condensation.
@@ -202,9 +204,10 @@ VAR taro = false
         *   [They symbolise rough waters] Two starchy squiggles, stuck to the base of the cup.
         Those two lines, they mean you're going to travel somewhere, but it's going to be really rough. I would reconsider. {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
         
-        *   [They represent .... ]
+        *   [They represent unity] You guys are going to be travelling in unison. Your paths will merge like rivers flowing in tandem. 
+        Prinita: "Pfft, that's really hard to believe." {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
 
-        - The little arrow. Pointing north, but was that good? Or was it supposed to point south?
+    -   The little arrow. Pointing north, but was that good? Or was it supposed to point south?
         *   [Right direction] You're going in the right direction. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
         Prinita: "I'm not too confident about that, to be totally honest with you."
 
@@ -215,42 +218,42 @@ VAR taro = false
         That's a sign that what you're about to try, you're not really thinking it through. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
         Prinita: "You're right. I'm just acting on an impulse. I should think about what this means for me."
 
-        - And the smear of taro mixed with milk in the shape of an 'x'.
+    -   And the smear of taro mixed with milk in the shape of an 'x'.
         *   [It's a target] The 'x' means you're on target. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
         Prinita: "Okay...if the pearls say so."
-        -> fate_handler_customer_one
         *   [It's a mistake] Don't do it! The 'x' means that the decision is just plain wrong. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
         Prinita: "That makes me feel better."
-        -> fate_handler_customer_one
         *   [It's a warning] And the 'x' means you're going in the wrong direction. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
         Prinita: "I'm going to have to think a bit harder about this, is that what you're telling me?"
-        -> fate_handler_customer_one
-
-= fate_handler_customer_one
-    { 
-        -   not tiredness && customer_satisfaction > 0: 
-        I think the pearls are pretty clear. Don't follow your husband to Brazil. Let him do his little art hunt by himself.
         
-        -   tiredness && customer_satisfaction > 0:
-        You should be okay. Heed the warning. Think twice about whether you want to follow him over there. 
-        I was too tired to pay much attention. It took a lot out of me when I read the pearls.
-        Prinita: "Okay. Thanks. They're just stupid pearls anyway. It's pretty stupid, staring at bubble tea and some stale milk."
+    -   -> fate_handler_customer_one
+
+    = fate_handler_customer_one
+        { 
+            -   not tiredness && customer_satisfaction > 0: 
+            I think the pearls are pretty clear. Don't follow your husband to Brazil. Let him do his little art hunt by himself.
+        
+            -   tiredness && customer_satisfaction > 0:
+            You should be okay. Heed the warning. Think twice about whether you want to follow him over there. 
+            I was too tired to pay much attention. It took a lot out of me when I read the pearls.
+            Prinita: "Okay. Thanks. They're just stupid pearls anyway. It's pretty stupid, staring at bubble tea and some stale milk."
         
         -   not tiredness && customer_satisfaction < 0:
-        There's probably something drawing you there that you can't escape. 
-        You're going to end up following him there, but it's going to be rough.
-        Prinita: "I know. I prepared myself for as much. Thanks anyway."
+            There's probably something drawing you there that you can't escape. 
+            You're going to end up following him there, but it's going to be rough.
+            Prinita: "I know. I prepared myself for as much. Thanks anyway."
 
         -   tiredness && customer_satisfaction < 0:
-        I guess you have no choice but to follow him to Brazil.
-        Prinita: "God damn it. I shouldn't have looked. It was going to screw up either way."
-        Prinita looked at the cup one last time, as if looking would change things, and left.
-    }
+            I guess you have no choice but to follow him to Brazil.
+            Prinita: "God damn it. I shouldn't have looked. It was going to screw up either way."
+            Prinita looked at the cup one last time, as if looking would change things, and left.
+        }
+
     -> show_final_score_customer_one
 
 === show_final_score_customer_one ===
-        FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
-        -> customer_two
+    FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+    -> customer_two
 
 === customer_two === 
     -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please. No ice, heaps of sugar. Cold and large."
@@ -381,9 +384,9 @@ VAR taro = false
     
     -   Squiggles that look like the letter 'm'...
         *   [A fire] I see a fire...not entirely sure it's going to end well. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
-        -> fate_handler_customer_two
         *   [A mountain] I see a mountain. Nepal it is! {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
-        -> fate_handler_customer_two
+    
+    -   -> fate_handler_customer_two
 
 = fate_handler_customer_two
     { 
@@ -402,8 +405,8 @@ VAR taro = false
     -> show_final_score_customer_two
 
 === show_final_score_customer_two ===
-        FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
-        -> customer_three
+    FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
+    -> customer_three
         
 === customer_three ===
     -   Customer: Yeah, hi. Do you do boba?
@@ -473,11 +476,9 @@ VAR taro = false
     
     -   A circle with a dot in the centre—a sun. 
         * [New beginnings] {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
-        -> fate_handler_customer_three
         * [Power] You're destined to be a power couple. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-        -> fate_handler_customer_three
         * [Success] It'll work out for you. Success is in your future. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-        -> fate_handler_customer_three
+    -   -> fate_handler_customer_three
 
 = fate_handler_customer_three
     { 
@@ -494,7 +495,7 @@ VAR taro = false
         Yoga, even? 
 
     }
-    -> show_final_score_customer_three
+-> show_final_score_customer_three
 
 === show_final_score_customer_three ===
         FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
