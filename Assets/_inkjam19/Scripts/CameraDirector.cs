@@ -8,7 +8,7 @@ public class CameraDirector : MonoBehaviour
 
 	GameObject activeCameraObject;
 
-	void Start ()
+	void Awake ()
 	{
 		Camera[] cameras = FindObjectsOfType<Camera>();
 		foreach(Camera aCamera in cameras)

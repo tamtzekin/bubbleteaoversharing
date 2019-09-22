@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 150931428}
   - component: {fileID: 150931427}
   m_Layer: 0
-  m_Name: LabelQuad
+  m_Name: CreditsLabelQuad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -937,7 +937,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4885671911370336, guid: 3079d2765e8218a468f74c2f59588bc6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4885671911370336, guid: 3079d2765e8218a468f74c2f59588bc6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2325,6 +2325,8 @@ MonoBehaviour:
   vnManager: {fileID: 1004793067}
   menuCanvas: {fileID: 1998533238}
   startMenuCanvas: {fileID: 2130903479}
+  cameraDirector: {fileID: 1229270996}
+  credits: {fileID: 150931425}
 --- !u!4 &1855143140
 Transform:
   m_ObjectHideFlags: 0
@@ -2349,7 +2351,7 @@ GameObject:
   - component: {fileID: 1943065489}
   - component: {fileID: 1943065490}
   m_Layer: 0
-  m_Name: CameraCredits
+  m_Name: CameraMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
