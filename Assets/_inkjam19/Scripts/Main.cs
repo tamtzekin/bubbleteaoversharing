@@ -10,9 +10,13 @@ public class Main : MonoBehaviour
 	[SerializeField]
 	Canvas menuCanvas;
 
+	[SerializeField]
+	Canvas startMenuCanvas;
+
 	void Start()
 	{
 		menuCanvas.gameObject.SetActive(false);
+		vnManager.gameObject.SetActive(false);
 	}
 
 	void Update ()
@@ -29,6 +33,13 @@ public class Main : MonoBehaviour
 				menuCanvas.gameObject.SetActive(false);
 			}
 		}
+	}
+
+	public void Begin()
+	{
+		startMenuCanvas.gameObject.SetActive(false);
+		vnManager.gameObject.SetActive(true);
+		vnManager.StartStory();
 	}
 
 	public void Return()

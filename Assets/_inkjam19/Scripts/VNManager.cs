@@ -34,12 +34,12 @@ public class VNManager : MonoBehaviour
 	CameraDirector cameraDirector;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
+		dialogueBox.SetActive(false);
 		speakerBox.SetActive(false);
 		story = new Story(inkJSONAsset.text);
 		dialogueText.text = "";
-		StartStory();
 	}
 
 	public void StartStory()
@@ -96,6 +96,7 @@ public class VNManager : MonoBehaviour
 			// Display the text on screen!
 			if ((text.Length > 0))
 			{
+				dialogueBox.SetActive(true);
 				CreateContentView(text);
 				return;
 			}
