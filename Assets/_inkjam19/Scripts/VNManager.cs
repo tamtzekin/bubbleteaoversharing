@@ -33,6 +33,10 @@ public class VNManager : MonoBehaviour
 	[SerializeField]
 	CameraDirector cameraDirector;
 
+    [Header("Gameplay")]
+	[SerializeField]
+	BBTManager bbtManager;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -40,7 +44,10 @@ public class VNManager : MonoBehaviour
 		speakerBox.SetActive(false);
 		story = new Story(inkJSONAsset.text);
 		dialogueText.text = "";
-	}
+        story.ObserveVariable("tiredness", (string varName, object newValue) => {
+            bbtManager.StoryTiredness = (int)newValue;
+        });
+    }
 
 	public void StartStory()
 	{

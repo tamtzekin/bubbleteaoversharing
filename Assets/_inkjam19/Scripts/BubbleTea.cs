@@ -7,21 +7,23 @@ public class BubbleTea : MonoBehaviour
 	[Header("Boba Appearance")]
 	[SerializeField]
 	bool strawIn = false;
-    bool StrawIn
+    public bool StrawIn
     {
         get { return strawIn; }
         set
         {
+            strawIn = value;
             strawObject.SetActive(value);
         }
     }
     [SerializeField]
 	bool lidOn = false;
-    bool LidOn
+    public bool LidOn
     {
         get { return lidOn; }
         set
         {
+            lidOn = value;
             lidObject.SetActive(value);
         }
     }
@@ -125,10 +127,13 @@ public class BubbleTea : MonoBehaviour
 
     public void InitIngredientScores(List<IngredientScore> iScores)
     {
-        ingredientScores = iScores;
+        ingredientScores = new List<IngredientScore>();
         foreach (IngredientScore iS in iScores)
         {
-            iS.score = 0;
+            IngredientScore temp = new IngredientScore();
+            temp.ingredient = iS.ingredient;
+            temp.score = 0;
+            ingredientScores.Add(temp);
         }
     }
 

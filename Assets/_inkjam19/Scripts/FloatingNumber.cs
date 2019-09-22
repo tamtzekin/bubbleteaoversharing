@@ -21,14 +21,12 @@ public class FloatingNumber : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //rectTransform.localPosition = new Vector2(((float)stamina / (float)maxStamina * 100), 0);
-        //rectTransform.localPosition += new Vector3(0, speed * Time.deltaTime);
         t += Time.deltaTime / duration;
-        //lerp from targets center to above target;
+        //lerp from center to above cup
         rectTransform.localPosition = Vector3.Lerp(initPos, new Vector3(0, 200), t);
         if (rectTransform.localPosition.y >= 175)
         {
-            //lerp from clear to color
+            //lerp from color to clear
             textMesh.color = Color.Lerp(initColor, Color.clear, t / 2f);
             if(textMesh.color.a <= 0.05)
             {

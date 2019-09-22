@@ -6,8 +6,6 @@ using TMPro;
 
 public class BBTManager : MonoBehaviour {
     [SerializeField]
-    VNManager vnManager;
-    [SerializeField]
     BubbleTea bubbleTea;
     [Header("Boba Recipe")]
     [SerializeField]
@@ -44,11 +42,25 @@ public class BBTManager : MonoBehaviour {
     [Header("UI - Stamina")]
     public int maxStamina;
     public Image staminaBar;
-    private int stamina;
-    public int Stamina {
-        get { return stamina; }
-        set {
-            stamina = value;
+    int storyTiredness = 0;
+    public int StoryTiredness
+    {
+        get { return storyTiredness; }
+        set
+        {
+            storyTiredness = value;
+            UpdateStaminaBar();
+        }
+    }
+    int workTiredness = 0;
+    public int WorkTiredness
+    {
+        get { return workTiredness; }
+        set
+        {
+            workTiredness = value;
+            Debug.Log("story tired: " + storyTiredness);
+            Debug.Log("work tired: " + workTiredness);
             UpdateStaminaBar();
         }
     }
@@ -56,14 +68,27 @@ public class BBTManager : MonoBehaviour {
     public float teaFillSpeed;
     public float ingredientTimerIncrement;
     float ingredientTimer;
+    float t;
     KeyCode[] ingredientKeyCodes;
 
 	// Use this for initialization
 	void Start () {
-        stamina = maxStamina;
+        //stamina = maxStamina;
         initKeyCodes();
+        LoadIngredients();
 	}
 
+    int Tiredness()
+    {
+        return storyTiredness + workTiredness;
+    }
+
+    int stamina()
+    {
+        return maxStamina - Tiredness();
+    }
+
+    //store which keys control toppings in array
     void initKeyCodes()
     {
         ingredientKeyCodes = new KeyCode[10];
@@ -79,9 +104,10 @@ public class BBTManager : MonoBehaviour {
         ingredientKeyCodes[9] = KeyCode.P;
     }
 
+    //stamina bar moves depending on value of stamina
     void UpdateStaminaBar()
     {
-        staminaBar.rectTransform.localPosition = new Vector2(((float)stamina / (float)maxStamina * 100), 0);
+        staminaBar.rectTransform.localPosition = new Vector2(((float)stamina() / (float)maxStamina * 100), 0);
     }
 
     // read the recipe and assign keys to ingredients
@@ -90,75 +116,116 @@ public class BBTManager : MonoBehaviour {
         availableIngredients = recipe.Ingredients;
         bubbleTea.SetTeaColor(recipe.TeaColor);
         bubbleTea.InitIngredientScores(recipe.IngredientScores);
-        SelectedIngredientIndex = 0;
+        SelectedIngredientIndex = Random.Range(0, recipe.IngredientScores.Count - 1);
     }
 
     // Update is called once per frame
     void Update () {
         manageInput();
+        if(staminaBar.transform.parent.localScale.x != 10)
+        {
+            //0.3f of a sec, move back to original scale
+            t += Time.deltaTime / 0.3f;
+            staminaBar.transform.parent.localScale = Vector3.Lerp(staminaBar.transform.parent.localScale, new Vector3(10f, 10f), t);
+        } else
+        {
+            t = 0;
+        }
 	}
 
     //manage what happens with the different toppings
     void fillToppingWithLetter(KeyCode kc)
     {
-        if(Input.GetKey(kc))
+        //cannot add anything to drink if sealed or tired
+        if (canUseAction() && !bubbleTea.LidOn)
         {
-            if (IngredientString(SelectedIngredientIndex) == "Ice" || IngredientString(SelectedIngredientIndex) == "Sugar")
+            if (Input.GetKey(kc))
             {
-                ingredientTimer += Time.deltaTime;
-                if(ingredientTimer >= ingredientTimerIncrement)
+                if (IngredientString(SelectedIngredientIndex) == "Ice" || IngredientString(SelectedIngredientIndex) == "Sugar")
                 {
-                    int newScore = bubbleTea.GetIngredientScore(SelectedIngredientIndex) + 1;
-                    if (newScore <= 4)
+                    //if ice or sugar user holds down key to slowly increase %
+                    ingredientTimer += Time.deltaTime;
+                    if (ingredientTimer >= ingredientTimerIncrement)
                     {
-                        bubbleTea.modIngredientScore(SelectedIngredientIndex, newScore);
-                        GameObject levelsText = (GameObject)Instantiate(Resources.Load("Prefabs/FloatingNumber"));
-                        levelsText.transform.parent = bubbleTea.gameObject.transform;
-                        levelsText.GetComponent<RectTransform>().localPosition = new Vector3(0, 100, -5);
-                        levelsText.GetComponent<RectTransform>().localRotation = new Quaternion(0, 0, 0, 1);
-                        levelsText.GetComponent<TextMeshPro>().text = (newScore * 25) + "%";
+                        int newScore = bubbleTea.GetIngredientScore(SelectedIngredientIndex) + 1;
+                        if (newScore <= 4)
+                        {
+                            bubbleTea.modIngredientScore(SelectedIngredientIndex, newScore);
+                            //show % UI
+                            GameObject levelsText = (GameObject)Instantiate(Resources.Load("Prefabs/FloatingNumber"));
+                            levelsText.transform.parent = bubbleTea.gameObject.transform;
+                            levelsText.GetComponent<RectTransform>().localPosition = new Vector3(0, 100, -5);
+                            levelsText.GetComponent<RectTransform>().localRotation = new Quaternion(0, 0, 0, 1);
+                            levelsText.GetComponent<TextMeshPro>().text = (newScore * 25) + "%";
+                        }
+                        ingredientTimer = 0;
                     }
-                    ingredientTimer = 0;
                 }
-            }
-            else if (IngredientString(SelectedIngredientIndex) == "Tea")
-            {
-                //increase cup fill
-                bubbleTea.AddTea(teaFillSpeed);
-                bubbleTea.modIngredientScore(SelectedIngredientIndex, (int)(bubbleTea.FillLevel * 4f));
-            }
-            else if (IngredientString(SelectedIngredientIndex) == "Milk")
-            {
-                //change bubble tea color to white-ish
-                bubbleTea.AddMilk(teaFillSpeed * Time.deltaTime);
-            }
-            else
-            {
-                bubbleTea.AddIngredient(availableIngredients[SelectedIngredientIndex]);
-                bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
+                else if (IngredientString(SelectedIngredientIndex) == "Tea")
+                {
+                    //increase cup fill
+                    bubbleTea.AddTea(teaFillSpeed);
+                    bubbleTea.modIngredientScore(SelectedIngredientIndex, (int)(bubbleTea.FillLevel * 4f));
+                }
+                else if (IngredientString(SelectedIngredientIndex) == "Milk")
+                {
+                    //change bubble tea color to white-ish
+                    bubbleTea.AddMilk(teaFillSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    //make score max (4) when anything else is added
+                    bubbleTea.AddIngredient(availableIngredients[SelectedIngredientIndex]);
+                    bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
+                }
             }
         }
         if(Input.GetKeyUp(kc))
         {
-            if (IngredientString(SelectedIngredientIndex) == "Milk")
+            if (!bubbleTea.LidOn)
             {
-                //complete the milk addition regardless of time held
-                bubbleTea.AddMilk(1f);
-                bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
+                if (canUseAction())
+                {
+                    if (IngredientString(SelectedIngredientIndex) == "Milk")
+                    {
+                        //complete the milk addition regardless of time held
+                        bubbleTea.AddMilk(1f);
+                        bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
+                    }
+                    //add tiredness after any action
+                    WorkTiredness++;
+                }
+                else
+                {
+                    //blip stamina bar if empty
+                    staminaBar.transform.parent.localScale = new Vector3(11f, 10f);
+                }
             }
-            Stamina--;
         }
+    }
+
+    //check for if lid on and has stamina
+    bool canUseAction()
+    {
+        return stamina() > 0;
     }
 
     //manage the keyboard input
     void manageInput()
     {
+        //Seal the deal
         if (Input.GetKeyUp(KeyCode.A))
         {
-            Debug.Log(vnManager.GetInkVar("tiredness"));
-            Stamina--;
-            LoadIngredients();
+            //Debug.Log(vnManager.GetInkVar("tiredness"));
+            bubbleTea.SealDrink();
         }
+        else if (Input.GetKeyUp(KeyCode.Space)) {
+            if (bubbleTea.LidOn)
+            {
+                serveDrink();
+            }
+        }
+
         //depending which ingredient is selected fill it
         if (SelectedIngredientIndex >= 0)
         {
@@ -166,13 +233,32 @@ public class BBTManager : MonoBehaviour {
         }
 
         //switch between selected ingredients with QWERTY keys
-        for (int i = 0; i < ingredientKeyCodes.Length; i++)
+        if (ingredientKeyCodes.Length > 0)
         {
-            if(Input.GetKeyUp(ingredientKeyCodes[i]))
+            for (int i = 0; i < ingredientKeyCodes.Length; i++)
             {
-                SelectedIngredientIndex = i;
+                if (Input.GetKeyUp(ingredientKeyCodes[i]))
+                {
+                    SelectedIngredientIndex = i;
+                }
             }
         }
+    }
+
+    // ?crosscheck scores of recipe to bubbletea
+    public void serveDrink()
+    {
+        int recipeScore = 0;
+        int userScore = 0;
+        for(int i = 0; i < recipe.IngredientScores.Count; i++)
+        {
+            recipeScore += recipe.IngredientScores[i].score;
+            userScore += bubbleTea.GetIngredientScore(i);
+        }
+        float descrepency = Mathf.Abs(userScore - recipeScore);
+        Debug.Log(userScore);
+        Debug.Log(recipeScore);
+        Debug.Log(descrepency);
     }
 
     //Display correct letter for selected ingredient
@@ -190,6 +276,7 @@ public class BBTManager : MonoBehaviour {
         return s;
     }
 
+    //grouped method
     void updateToppingUI()
     {
         updatePrevTopping();
@@ -197,6 +284,7 @@ public class BBTManager : MonoBehaviour {
         updateNextTopping();
     }
 
+    //changes sprites for topping UI
     void updatePrevTopping()
     {
         if (SelectedIngredientIndex >= 1)
@@ -211,6 +299,7 @@ public class BBTManager : MonoBehaviour {
         }
     }
 
+    //changes sprites for topping UI
     void updateNextTopping()
     {
         if (SelectedIngredientIndex < availableIngredients.Count - 1)
@@ -225,6 +314,7 @@ public class BBTManager : MonoBehaviour {
         }
     }
 
+    //changes sprites for topping UI
     void updateCurrentTopping()
     {
         assignToppingLetter();
