@@ -19,6 +19,9 @@ public class Main : MonoBehaviour
 	[SerializeField]
 	GameObject credits;
 
+	[SerializeField]
+	GameObject[] creditsObjects;
+
 	enum State { MainMenu, Credits, Game};
 
 	State currentState;
@@ -58,6 +61,32 @@ public class Main : MonoBehaviour
 		vnManager.gameObject.SetActive(true);
 		vnManager.StartStory();
 		currentState = State.Game;
+	}
+
+	public void Credits()
+	{
+		startMenuCanvas.gameObject.SetActive(false);
+		credits.SetActive(true);
+		for (int i = 0; i < creditsObjects.Length; i++)
+		{
+			creditsObjects[i].SetActive(false);
+		}
+		StartCoroutine(CreditsCoroutine());
+	}
+
+	IEnumerator CreditsCoroutine()
+	{
+		for(int i = 0; i < creditsObjects.Length; i++)
+		{
+			creditsObjects[i].SetActive(true);
+			if(i > 0)
+			{
+				creditsObjects[i-1].SetActive(false);
+			}
+			yield return new WaitForSeconds(3f);
+		}
+		credits.SetActive(false);
+		startMenuCanvas.gameObject.SetActive(true);
 	}
 
 	public void Return()
