@@ -10448,6 +10448,10 @@ MonoBehaviour:
   strawIn: 1
   lidOn: 1
   fillLevel: 1
+<<<<<<< HEAD
+=======
+  teaColor: {r: 1, g: 1, b: 1, a: 1}
+>>>>>>> ac9b62dc43549685423f99c58cd3566e46aec40c
   strawObject: {fileID: 1023578829255396}
   lidObject: {fileID: 1491239462156484}
   liquidRenderer: {fileID: 23768397018235544}
