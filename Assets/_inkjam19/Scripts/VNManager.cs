@@ -52,7 +52,7 @@ public class VNManager : MonoBehaviour
 	{
 		if(story.canContinue || choiceHolder.transform.childCount == 0)
 		{
-			if (Input.anyKeyDown)
+			if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
 			{
 				RefreshView();
 			}
