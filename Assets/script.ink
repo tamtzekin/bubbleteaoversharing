@@ -304,37 +304,16 @@ VAR milk = false
     -   Nam: "You know, because you're listening, not going to lie but I'm pretty stressed right now."
         *   [What's up?] What's bothering you?
         *   [(Just make the tea)]
-    -   Nam: "I have a feeling I'm just not going to make target this week."
-    -   Nam: "You see, my job is to go to schools and "
-    -   Nam: "I'm a financial evangelist for a financial empowerment company. It's not a startup, so don't call it that."
-        *   []   
-        *   [] 
-    -   Nam:
-        *   [] 
+    -   Martha: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
+    -   Martha: "And the artist is white, too. So it's...a fresh perspective."
+    -   Martha: "What do I tell him?"
+        *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there.  
+        *   [That's...exploitative] ...
+        Uuuuuuh..........
+    -   Martha: "But he says we have to be lowkey about it. Don't tell our friends. He wants to bring a couple of the artists back and house them all in a studio here. Like a big sharehouse."
+        *   [All for it]    Support local artists. I'm into it. 
         -> read_fortune
-        *   [] 
+        *   [Bad idea]  You're really starting to make this sound like a bad idea.
         -> read_fortune
     
 -> END
-
-
-// template for small_talk
-    = small_talk
-    -   Customer: 
-    -   Customer: 
-        *   [(Make drink)]
-
-    -   Customer: 
-        *   [] 
-        *   []
-    -   Customer: 
-    -   Customer: 
-    -   Customer: 
-        *   []   
-        *   [] 
-    -   Customer:
-        *   [] 
-        -> read_fortune
-        *   [] 
-        -> read_fortune
-    
