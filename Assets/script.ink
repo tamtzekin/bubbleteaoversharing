@@ -13,7 +13,7 @@ VAR DEBUG = true
 	*	[Beginning...]	-> intro
     *   [Prinita] -> customer_one
     *   [Nam] -> customer_two
-    *   [Valeria] -> customer___three
+    *   [Valeria] -> customer_three
 - else:
 	// First diversion: where do we begin?
  -> intro
