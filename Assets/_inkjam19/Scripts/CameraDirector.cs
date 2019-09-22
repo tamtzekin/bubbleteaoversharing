@@ -8,11 +8,15 @@ public class CameraDirector : MonoBehaviour
 
 	GameObject activeCameraObject;
 
-	void Start ()
+	void Awake ()
 	{
 		Camera[] cameras = FindObjectsOfType<Camera>();
 		foreach(Camera aCamera in cameras)
 		{
+			if(aCamera.targetTexture != null)
+			{
+				continue;
+			}
 			cameraDictionary.Add(aCamera.gameObject.name, aCamera.gameObject);
 			if(aCamera != Camera.main)
 			{

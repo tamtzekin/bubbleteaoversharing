@@ -13,10 +13,18 @@ public class Main : MonoBehaviour
 	[SerializeField]
 	Canvas startMenuCanvas;
 
+	[SerializeField]
+	CameraDirector cameraDirector;
+
+	[SerializeField]
+	GameObject credits;
+
 	void Start()
 	{
 		menuCanvas.gameObject.SetActive(false);
 		vnManager.gameObject.SetActive(false);
+		credits.SetActive(false);
+		cameraDirector.ChangeCamera("CameraMenu");
 	}
 
 	void Update ()
@@ -38,6 +46,7 @@ public class Main : MonoBehaviour
 	public void Begin()
 	{
 		startMenuCanvas.gameObject.SetActive(false);
+		cameraDirector.ChangeCamera("Main Camera");
 		vnManager.gameObject.SetActive(true);
 		vnManager.StartStory();
 	}
