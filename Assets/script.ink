@@ -14,7 +14,7 @@ George Mak @dinopokey
 // Debug mode - skip to different sections of the story
 VAR DEBUG = true
 {DEBUG:
-	IN DEBUG MODE!
+	WELCOME TO DEBUG MODE
 	*	[Beginning...]	-> intro
     *   [Prinita] -> customer_one
     *   [Nam] -> customer_two
@@ -344,8 +344,12 @@ VAR taro = false
     -   Nam: "My job is to convince young people, in primary schools mostly, to get ahead on their investment portfolio while they're young."
     -   Nam: "The company has a deal with each school to send their evangelists in, so the kids can remember a friendly face whenever they see our logo."
         *   [That's admirable] Getting them on the right track to success. It's what we all need in life. {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
+        Nam: "That's right. Get them early and they'll get rich early too. I'm doing it for the kids, you see."
         *   [That's a real job?] So you pay schools out to force children to bank with you? {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
-    -   Nam: "Exactly. I like to think that I'm doing good work. Keeping our system afloat."
+        Nam: "Not exactly like that, but yes, in a roundabout kinda way. God, it does seem kind of bad when you think about it."
+        *   [Is that even allowed?] You...what? Get children to start investing their money when they're still in school? {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
+        Nam: "...you're right. That is kinda weird."
+
     -   Nam: "Anyway, it's going to be hard signing enough young people for this cycle."
     -   Nam: "My KPI is fifty kids. How do I do it?"
         *   [Not worth it] Look, Nam. Can I be honest? These kids don't need financial advice. They don't need a credit card. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
@@ -353,25 +357,29 @@ VAR taro = false
         Nam: "You're probably right. Money truly is evil..."
         Nam: "I'm going to burn all my money and move to Nepal!!"
             ** [Do it.] Mindfulness is immaterial. You won't need it. Spark the flame. {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
-            -> read_fortune
             ** [WHAT??] ...maybe just keep a savings account, for backup, just in case? {stats(customer_satisfaction, 1)} {stats(tiredness, -1)}
-            -> read_fortune
+
         *   [You can do it] You're doing important work. These kids need to know how to manage their wealth, before it gets out of hand.
         Every child needs financial independence. The market defines our future. {stats(customer_satisfaction, 2)} {stats(tiredness, 2)}
         Nam: "Thank you. I needed to hear that. I know what I'm doing is critical. Wealth is everything!"
             **  [That's right] The market is our god. Let it guide you like a flame in the night. {stats(customer_satisfaction, 2)} {stats(tiredness, 3)}
-            -> read_fortune
             ** [I think I was wrong] Wait, maybe I got this wrong. This is not the path you want to take!! {stats(customer_satisfaction, -3)} {stats(tiredness, 2)}
-            -> read_fortune
+            
+        *   [Think about it] Maybe think long and hard about the impact this might have. You're roping kids into something they barely understand. Maybe they should just wait until they're older? {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+        Nam: "...what am I doing with my life!!"
+            **  [Acknowledging is the first step] Acknowledging what you've done wrong is the first step. I'll be here for you. We can work this out. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
+            **  [It will be hard] It's no surprise that it'll be difficult. But at least you won't be ruining any young lives this way. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+    
+    -   -> read_fortune
 
     = read_fortune
-    -   Nam: "So, what happens now? Do I give you my cup? There are a few pearls left."
+    -   Nam: "Well, so, what happens now? Do I give you my cup? There are a few pearls left."
     He hands the finished drink over, with a few pearls squished together and left over. 
         *   [What's your question?] The pearls respond to a single question. Try to be specific.
         
     -   Nam: "Okay...pearls...are you listening?"
-    -   Name: "Here we go..."
-    -   Name: "Should I quit and go to Nepal to become a yoga teacher?"
+    -   Nam: "Here we go..."
+    -   Nam: "Should I quit and go to Nepal to become a yoga teacher?"
         *   [(Read the pearls)]
 
     -   Three times, left to right. Turn the cup upside-down. I leant against the counter as we waited for a minute. 
@@ -385,7 +393,7 @@ VAR taro = false
 
     -   The sign of an anchor made out in black splodges.
         *   [You will find stability] It's just the beginning. You'll be downwards dogging into a stable existence. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-        *   [You're stuck] Don't throw it all away. Stick with what you're good at: selling debt to children. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
+        *   [You're stuck] Don't throw it all away. Stick with what you're good at—selling debt to children. {stats(customer_satisfaction, -2)} {stats(tiredness, 2)}
     
     -   Squiggles that look like the letter 'm'...
         *   [A fire] I see a fire...not entirely sure it's going to end well. {stats(customer_satisfaction, -3)} {stats(tiredness, 3)}
@@ -417,7 +425,7 @@ VAR taro = false
     -   Customer: Yeah, hi. Do you do boba?
     -   We do. 
     -   Customer: What's the name of that drink there? 'I'm Putting Protest Rally Facebook Event Links In My Twitter Bio For Social Capital' Taro and Orange Tea.
-    -   Customer. Name's Valeria.
+    -   Customer: Name's Valeria.
         *   [(Make drink)]
         -> small_talk
 
