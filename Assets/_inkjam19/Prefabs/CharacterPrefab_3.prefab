@@ -1683,6 +1683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charNumber: 3
+  characterName: Valeria
 --- !u!137 &137039939766457836
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
