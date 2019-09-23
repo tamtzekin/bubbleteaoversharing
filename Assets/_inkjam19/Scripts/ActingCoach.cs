@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ActingCoach : MonoBehaviour
 {
-	Animator[] animators;
+	CharacterManager[] characterManagers;
 
 	void Start()
 	{
-		animators = FindObjectsOfType<Animator>();
-		foreach (Animator animator in animators)
+		characterManagers = FindObjectsOfType<CharacterManager>();
+		foreach (CharacterManager characterManager in characterManagers)
 		{
-			animator.gameObject.SetActive(false);
+			characterManager.gameObject.SetActive(false);
 		}
 	}
 }

@@ -15,7 +15,7 @@ public class CharacterManager : MonoBehaviour {
     GameObject mouthTwo;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         anim = GetComponentInChildren<Animator>();
 
         //Finding eyes and mouths within the prefab
