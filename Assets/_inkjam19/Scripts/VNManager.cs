@@ -80,7 +80,16 @@ public class VNManager : MonoBehaviour
 				RefreshView();
 			}
 		}
-	}
+
+        //Seal the deal
+        if (Input.GetKeyUp(KeyCode.A) && !bbtManager.BubbleTea.LidOn)
+        {
+            //Debug.Log(vnManager.GetInkVar("tiredness"));
+            bbtManager.BubbleTea.SealDrink();
+            story.variablesState["isTeaMade"] = true;
+            story.variablesState["bubble_tea_score"] = bbtManager.GetTeaScore();
+        }
+    }
 
 	void RefreshView()
 	{

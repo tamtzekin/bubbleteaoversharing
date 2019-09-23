@@ -41,6 +41,7 @@ VAR tiredness = 0
 
 // Bubble tea states
 VAR isTeaMade = false
+VAR bubble_tea_score = 0
 
 LIST sizeState = regular, large
 VAR sizeLevel = regular
