@@ -1,7 +1,9 @@
 === customer_three ===
+ENTER Valeria
     -   Customer: Yeah, hi. Do you do boba?
     -   We do. 
     -   Customer: What's the name of that drink there? 'I'm Putting Protest Rally Facebook Event Links In My Twitter Bio For Social Capital' Taro and Orange Tea.
+CAMERA CustomerCamera
     -   Customer: Name's Valeria.
         *   [(Make drink)]
         -> small_talk
@@ -9,15 +11,18 @@
     = small_talk
     -   Valeria: "So how does this work. I tell you a bit about myself, then I ask a question, and you tell me what's gonna happen?"
     -   Valeria: "I'm an artist. Was an artist, now work as more of a consultant these days. Freelance. Rent's too much in Berlin now that all the investors have moved in."
+	CAMERA SideOnCamera
     -   Valeria: "You heard of DistEnZ? They make sneakers from ethically-sourced vegan material."
+	CAMERA CustomerCamera
     -   Valeria: "After you're done with them, you can burn them for biofuel. Put it in your car, or something."
     -   Valeria: "I bounce between Colombia and Shenzhen sourcing materials. Most of it comes from recycled bullet casings we find buried in farms across Mongolia."
         *   [Save our planet] Our planet is burning. Save it. Do your bit, and all.  
         *   [How are bullet casings vegan?] I don't really understand how bullet casings can be considered vegan. In any way. 
         Valeria: "I mean, there are no animals involved. Right?"
         *   Sounds interesting[]. Tell me more about it.
-
-    -   Valeria: "Anyway, I'm having trouble. I thought the pearls might be able to guide my way."
+    -
+CAMERA FaceCamera
+	Valeria: "Anyway, I'm having trouble. I thought the pearls might be able to guide my way."
     -   Valeria: "When I was an artist, I worked really hard to build up my name as a sustainable artist. I didn't create waste. I always reused things."
     -   Valeria: "The company want me to commission a huge sculpture of one of their signature shoes outside the factory in Shenzhen. Made of the bullet casings."
         *   [Do it for art] It's probably a good use of resources. {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
@@ -32,6 +37,7 @@
     -   Valeria: "You know, I've always had this idea to get a big pile of the shoes, like thousands, load them onto a raft, set it on fire and push it out to sea."
         *   [That's one idea...] It might be worth trying. I can see potential in it. As long as the message is there. {stats(customer_satisfaction, 1)} {stats(tiredness, 1)}
         *   [What about the gas??] But what about all the poisonous gas it's going to throw up into the air? And the shoes that are going to end up at the bottom of the ocean?
+		CAMERA CustomerCamera
         Valerie: "Oh...I guess that was the last thing on my mind." {stats(customer_satisfaction, -1)} {stats(tiredness, 1)}
         *   [Timeless] Pure artistry in practice. They'll be having a retrospective on you next year. At MoMA. {stats(customer_satisfaction, 2)} {stats(tiredness, -1)}
 

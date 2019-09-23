@@ -168,6 +168,7 @@ CAMERA CustomerCamera
         Ah, well. We're not all cut out to do what we want. 
 
     }
+	EXIT Nam
     -> customer_three
 
 === show_final_score_customer_two ===
