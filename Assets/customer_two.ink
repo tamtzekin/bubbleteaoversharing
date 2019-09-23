@@ -1,4 +1,6 @@
-=== customer_two === 
+=== customer_two ===
+CAMERA CustomerCamera
+ENTER Nam
     -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please. No ice, heaps of sugar. Cold and large."
     -   Customer: "Name for that is Nam."
     -> choose_temp
@@ -59,7 +61,8 @@
         {stats(customer_satisfaction, -1)}
         -> choose_size
 
-    = choose_size 
+    = choose_size
+	CAMERA SideOnCamera
     -   And size.
         *   [Regular] You wanted regular.
         ~ sizeLevel = regular 
@@ -73,7 +76,7 @@
 
     = small_talk
         *   [(Make drink)]
-
+CAMERA FaceCamera
     -   Nam: "You know, because you're listening, not going to lie but I'm pretty stressed right now."
         *   [What's up?] What's bothering you?
         *   [(Just make the tea)]
@@ -103,11 +106,14 @@
             **  [That's right] The market is our god. Let it guide you like a flame in the night. {stats(customer_satisfaction, 2)} {stats(tiredness, 3)}
             ** [I think I was wrong] Wait, maybe I got this wrong. This is not the path you want to take!! {stats(customer_satisfaction, -3)} {stats(tiredness, 2)}
             
-        *   [Think about it] Maybe think long and hard about the impact this might have. You're roping kids into something they barely understand. Maybe they should just wait until they're older? {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+        *   [Think about it]
+		CAMERA SideOnCamera
+		Maybe think long and hard about the impact this might have. You're roping kids into something they barely understand. Maybe they should just wait until they're older? {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
+		CAMERA FaceCamera
         Nam: "...what am I doing with my life!!"
             **  [Acknowledging is the first step] Acknowledging what you've done wrong is the first step. I'll be here for you. We can work this out. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
             **  [It will be hard] It's no surprise that it'll be difficult. But at least you won't be ruining any young lives this way. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-    -   -> fail_handler
+    -   -> read_fortune
     
 // Fail condition
     = fail_handler
@@ -119,6 +125,7 @@
     
 // Read the pearls
     = read_fortune
+CAMERA CustomerCamera
     -   Nam: "Well, so, what happens now? Do I give you my cup? There are a few pearls left."
     He hands the finished drink over, with a few pearls squished together and left over. 
         *   [What's your question?] The pearls respond to a single question. Try to be specific.
@@ -161,7 +168,7 @@
         Ah, well. We're not all cut out to do what we want. 
 
     }
-    -> show_final_score_customer_two
+    -> customer_three
 
 === show_final_score_customer_two ===
     FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}

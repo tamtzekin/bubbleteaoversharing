@@ -1683,6 +1683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charNumber: 2
+  characterName: Nam
 --- !u!137 &137102042721933130
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

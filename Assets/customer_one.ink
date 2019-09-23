@@ -90,7 +90,7 @@ CAMERA CustomerCamera
         *   What[?] do you mean?   
 
     -
-	CAMERA EyesCamera
+	CAMERA FaceCamera
 	Customer: "Like, you can tell me my future?"
         *   [What?] We just do bubble tea. Sorry. Can I get a name?
             "You know what I mean. Are we not allowed to talk about that, or something?"
@@ -101,7 +101,7 @@ CAMERA CustomerCamera
     -   Thanks, Prinita. 
 CAMERA CustomerCamera
     -   Prinita: "Ah, it's just such a pain. Erik wants me to go back over to Brazil. He's found an artist over there, over in the favelas. He thinks he'll be big. He's doing a studio visit."
-	CAMERA EyesCamera
+	CAMERA FaceCamera
     -   Prinita: "I think it's pretty amateur stuff." 
         *   [Support him] You should give it a chance. It'll be a change of pace. {stats(customer_satisfaction, -1)}
         *   [Forget it] Can't he hunt for artists over here instead? {stats(customer_satisfaction, 1)}
