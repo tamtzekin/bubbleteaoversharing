@@ -42,16 +42,17 @@
 
     -   Valeria: "Thanks for listening. Now, should we see what the pearls say?"
         *   [(Let's do it)]
+    
+    -   -> fail_handler
 
 // Fail condition
-/*
-        {
-            - isTeaMade = true:
-                -> read_fortune
-            - else:
-                -> game_over
+    = fail_handler
+        { isTeaMade == true:
+            -> read_fortune
+        - else:
+            -> game_over
         }
-*/
+        
 // Read the pearls
     = read_fortune
     -   Valeria: "Alright. Seems stupid to ask this to a cup, but..."
@@ -100,9 +101,3 @@
         FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
 
 -> END
-
-/* If user fails to complete the tea to order, divert them here 
-... Oh no! You failed to make the tea!
-=== game_over ===
-*/
-//show fail screen 

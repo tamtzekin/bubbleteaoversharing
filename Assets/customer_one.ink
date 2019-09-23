@@ -112,16 +112,16 @@
         *   [All for it] Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
         *   [Bad idea] You're really starting to make this sound like a bad idea. 
         *   [You should interrogate him] What is he going to do, make them paint for food? {stats(customer_satisfaction, 1)}
+    -   -> fail_handler
 
 // Fail condition
-/*
-        {
-            - isTeaMade = true:
-                -> read_fortune
-            - else:
-                -> game_over
+    = fail_handler
+        { isTeaMade == true:
+            -> read_fortune
+        - else:
+            -> game_over
         }
-*/
+    
 // Read the pearls
     = read_fortune
     -   Prinita: "Alright." She handed the drink back. "Tell me what they say."

@@ -107,16 +107,16 @@
         Nam: "...what am I doing with my life!!"
             **  [Acknowledging is the first step] Acknowledging what you've done wrong is the first step. I'll be here for you. We can work this out. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
             **  [It will be hard] It's no surprise that it'll be difficult. But at least you won't be ruining any young lives this way. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-
+    -   -> fail_handler
+    
 // Fail condition
-/*
-        {
-            - isTeaMade = true:
-                -> read_fortune
-            - else:
-                -> game_over
+    = fail_handler
+        { isTeaMade == true:
+            -> read_fortune
+        - else:
+            -> game_over
         }
-*/
+    
 // Read the pearls
     = read_fortune
     -   Nam: "Well, so, what happens now? Do I give you my cup? There are a few pearls left."
