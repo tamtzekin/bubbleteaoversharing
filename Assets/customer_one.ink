@@ -1,4 +1,5 @@
 === customer_one ===
+CAMERA CustomerCamera
 ENTER Prinita
     -  "Do you do skim?"
         *   Of course[] we do.
