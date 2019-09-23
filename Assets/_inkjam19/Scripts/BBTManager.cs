@@ -7,6 +7,11 @@ using TMPro;
 public class BBTManager : MonoBehaviour {
     [SerializeField]
     BubbleTea bubbleTea;
+    public BubbleTea BubbleTea
+    {
+        get { return bubbleTea; }
+        set { bubbleTea = value; }
+    }
     [Header("Boba Recipe")]
     [SerializeField]
     BubbleTeaRecipe recipe;
@@ -59,8 +64,6 @@ public class BBTManager : MonoBehaviour {
         set
         {
             workTiredness = value;
-            Debug.Log("story tired: " + storyTiredness);
-            Debug.Log("work tired: " + workTiredness);
             UpdateStaminaBar();
         }
     }
@@ -214,20 +217,7 @@ public class BBTManager : MonoBehaviour {
     //manage the keyboard input
     void manageInput()
     {
-        //Seal the deal
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            //Debug.Log(vnManager.GetInkVar("tiredness"));
-            bubbleTea.SealDrink();
-        }
-        else if (Input.GetKeyUp(KeyCode.Space)) {
-            if (bubbleTea.LidOn)
-            {
-                serveDrink();
-            }
-        }
-
-        //depending which ingredient is selected fill it
+         //depending which ingredient is selected fill it
         if (SelectedIngredientIndex >= 0)
         {
             fillToppingWithLetter(ingredientKeyCodes[SelectedIngredientIndex]);
@@ -247,7 +237,7 @@ public class BBTManager : MonoBehaviour {
     }
 
     // ?crosscheck scores of recipe to bubbletea
-    public void serveDrink()
+    public float GetTeaScore()
     {
         int recipeScore = 0;
         int userScore = 0;
@@ -257,9 +247,7 @@ public class BBTManager : MonoBehaviour {
             userScore += bubbleTea.GetIngredientScore(i);
         }
         float descrepency = Mathf.Abs(userScore - recipeScore);
-        Debug.Log(userScore);
-        Debug.Log(recipeScore);
-        Debug.Log(descrepency);
+        return (recipeScore - descrepency) / recipeScore;
     }
 
     //Display correct letter for selected ingredient
