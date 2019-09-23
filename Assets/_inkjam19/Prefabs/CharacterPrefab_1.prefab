@@ -1683,6 +1683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charNumber: 1
+  characterName: Prinita
 --- !u!137 &137023774924123432
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

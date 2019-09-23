@@ -7,6 +7,8 @@ public class CharacterManager : MonoBehaviour {
     //Created this value for ease of reference.
     public int charNumber;
 
+	public string characterName;
+
     Animator anim;
 
     GameObject eyesOne;

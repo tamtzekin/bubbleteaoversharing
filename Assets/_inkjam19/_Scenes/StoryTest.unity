@@ -1389,6 +1389,7 @@ MonoBehaviour:
   speakerBox: {fileID: 92907625}
   speakerText: {fileID: 268369772}
   cameraDirector: {fileID: 1229270996}
+  actingCoach: {fileID: 699081587}
   bbtManager: {fileID: 0}
 --- !u!4 &1004793068
 Transform:
