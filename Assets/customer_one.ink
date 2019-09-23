@@ -1,10 +1,10 @@
 === customer_one ===
 CAMERA CustomerCamera
 ENTER Prinita
-    -  "Do you do skim?"
+    -  Customer: "Do you do skim?"
         *   Of course[] we do.
         *   [Huh?] Um, just let me check real quick...
-    -   "Almond will do. Whatever. A 'Wasting My Youth Away Going to Art Gallery Openings Every Weekend' Peach and Taro Golden Rain Tea, please? Normal size. Cold, with less sugar, a bit of ice."
+    -   Customer: "Almond will do. Whatever. A 'Wasting My Youth Away Going to Art Gallery Openings Every Weekend' Peach and Taro Golden Rain Tea, please? Normal size. Cold, with less sugar, a bit of ice."
     -> choose_temp
 
     = choose_temp
@@ -64,7 +64,8 @@ ENTER Prinita
         {stats(customer_satisfaction, -1)}
         -> choose_size
 
-    = choose_size 
+    = choose_size
+	CAMERA SideOnCamera
     -   And how big they wanted it.
         *   [Regular]
         ~ sizeLevel = regular 
@@ -79,7 +80,7 @@ ENTER Prinita
     = small_talk
     -   I don't even know if the tea was any good. Sometimes they just tipped it out into the gutter and handed the cup back over for a reading.
         *   [(Small talk)] 
-        
+CAMERA CustomerCamera
     -   Customer: "You guys been open for long?"
         *   People know us[]. We have our regulars. Surprised I haven't seen you around before.
         *   [Forever] Way too long.
@@ -88,23 +89,28 @@ ENTER Prinita
         *   Sure[]. What do you want? 
         *   What[?] do you mean?   
 
-    -   Customer: "Like, you can tell me my future?"
+    -
+	CAMERA EyesCamera
+	Customer: "Like, you can tell me my future?"
         *   [What?] We just do bubble tea. Sorry. Can I get a name?
             "You know what I mean. Are we not allowed to talk about that, or something?"
             **  Okay. [Just give me a sec]. Can I get a name for the order?
         *   In a sec[]. I have to make the drink first. Can I get a name?
 
-    -   Customer: "It's Prinita."
+    -   Prinita: "It's Prinita."
     -   Thanks, Prinita. 
-
+CAMERA CustomerCamera
     -   Prinita: "Ah, it's just such a pain. Erik wants me to go back over to Brazil. He's found an artist over there, over in the favelas. He thinks he'll be big. He's doing a studio visit."
+	CAMERA EyesCamera
     -   "I think it's pretty amateur stuff." 
         *   [Support him] You should give it a chance. It'll be a change of pace. {stats(customer_satisfaction, -1)}
         *   [Forget it] Can't he hunt for artists over here instead? {stats(customer_satisfaction, 1)}
         *   [Do it for yourself] Maybe it's worth starting another life over there. {stats(customer_satisfaction, -1)}
         Prinita: Uh, it really doesn't sound like my sort of thing.
 
-    -   Prinita: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
+    -
+CAMERA CustomerCamera
+	Prinita: "He insists that we have to go with him. The artist has some big mural hanging up in his studio. Something about the neoliberal occupation of Brazilian consciousness. He's a big believer in art that can be political.
     -   Prinita: "And the artist is white, too. So it's...a fresh perspective. It's really cultural over there."
     -   Prinita: "What do I tell him?"
         *   [Sounds like a real moment] Art has the power to change lives. Sell everything you own online and haul yourself over there. {stats(customer_satisfaction, -1)}  
