@@ -138,6 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4604694143547280}
+  - component: {fileID: 114996196910858500}
   m_Layer: 0
   m_Name: IceGroup
   m_TagString: Untagged
@@ -10524,8 +10525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strawIn: 0
-  lidOn: 1
-  fillLevel: 1
+  lidOn: 0
+  fillLevel: 0
   teaColor: {r: 1, g: 1, b: 1, a: 1}
   ingredients: []
   strawObject: {fileID: 1023578829255396}
@@ -10538,3 +10539,17 @@ MonoBehaviour:
   - {fileID: 114702066744246654}
   - {fileID: 114081166030568806}
   - {fileID: 114622812706089584}
+  - {fileID: 114996196910858500}
+  ingredientScores: []
+--- !u!114 &114996196910858500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032001637352030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd31c8a477ad641898c281df5926bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 29d8d107dc97752478e6ce3bbc78a478, type: 2}
