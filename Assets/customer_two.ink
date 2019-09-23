@@ -1,56 +1,3 @@
-// initialise
-INCLUDE settings.ink
-INCLUDE customer_one.ink
-INCLUDE customer_two.ink
-INCLUDE customer_three.ink
-
-// ALter the various states and stats of characters
-=== function stats(ref x, y) ===
-	~ x = x + y
-
-// Customer states
-VAR customer_satisfaction = 0
-
-// Mental health states
-VAR tiredness = 0
-
-// Bubble tea states
-VAR isTeaMade = false
-
-LIST sizeState = regular, large
-VAR sizeLevel = regular
-
-LIST tempStates = hot, cold
-VAR tempLevel = hot
-
-LIST levelStates = none, less, half, more
-VAR iceLevel = none
-VAR sugarLevel = none
-
-// Toppings 
-/* Aloe is from Bangladesh, Red bean is from Colombia, Taro is from Papua New Guinea */
-VAR aloevera = false 
-VAR cheesefoam = false
-VAR coconutjelly = false
-VAR custard = false
-VAR herbaljelly = false
-VAR lycheejelly = false
-VAR mousse = false
-VAR pearls = false
-VAR redbean = false
-VAR taro = false
-
-// Game script
-=== intro === 
-    -   Some bubble tea places go all out. Cheese, burnt cheese, fresh taro, purple rice, rice and yoghurt. 
-    -   It gets pretty wild.
-    -   You know how people read tea leaves? It's called "tasseography", I found out. It's really big with mums on Pinterest now. 
-    -   So, I read an article in Harper's. I thought I might be able to do the same.
-    -   They tend to look down on us. But I'd argue it's an art in itself.
-    -   We're at the brink of a new age. A new period in human occupation, where everyone's troubles and anxieties can just bubble away.
-        *   [(Serve)]
-    -> customer_one
-
 === customer_two === 
     -   Customer: "Can I get a 'Blowing Every Last Dollar On My Disassociative Cam Girlfriend' Caramel Oolong Tea, please. No ice, heaps of sugar. Cold and large."
     -   Customer: "Name for that is Nam."
@@ -160,15 +107,16 @@ VAR taro = false
         Nam: "...what am I doing with my life!!"
             **  [Acknowledging is the first step] Acknowledging what you've done wrong is the first step. I'll be here for you. We can work this out. {stats(customer_satisfaction, 3)} {stats(tiredness, -3)}
             **  [It will be hard] It's no surprise that it'll be difficult. But at least you won't be ruining any young lives this way. {stats(customer_satisfaction, 2)} {stats(tiredness, -2)}
-
-// Fail condition 
-        {
-            - isTeaMade = true:
-                -> read_fortune
-            - else:
-                -> game_over
+    -   -> fail_handler
+    
+// Fail condition
+    = fail_handler
+        { isTeaMade == true:
+            -> read_fortune
+        - else:
+            -> game_over
         }
-
+    
 // Read the pearls
     = read_fortune
     -   Nam: "Well, so, what happens now? Do I give you my cup? There are a few pearls left."

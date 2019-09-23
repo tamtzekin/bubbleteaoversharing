@@ -18,14 +18,13 @@ INCLUDE customer_three.ink
 
 // Debug mode - skip to different sections of the story
 VAR DEBUG = true
-{DEBUG:
-	WELCOME TO DEBUG MODE
-	*	[Beginning...]	-> intro
+{ DEBUG:
+    WELCOME TO DEBUG MODE
+    *   [Intro]	-> intro
     *   [Prinita] -> customer_one
     *   [Nam] -> customer_two
     *   [Valeria] -> customer_three
 - else:
-	// First diversion: where do we begin?
  -> intro
 }
 
@@ -41,6 +40,7 @@ VAR tiredness = 0
 
 // Bubble tea states
 VAR isTeaMade = false
+VAR bubble_tea_score = 0
 
 LIST sizeState = regular, large
 VAR sizeLevel = regular
@@ -76,9 +76,9 @@ VAR taro = false
         *   [(Serve)]
     -> customer_one
 
--> END
-
-/* If user fails to complete the tea to order, divert them here 
-... Oh no! You failed to make the tea! */
+// If user fails to complete the tea to order, divert them here 
+// ... Oh no! You failed to make the tea!
 === game_over ===
-//TODO: show fail screen 
+//show fail screen
+
+-> END

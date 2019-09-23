@@ -80,7 +80,16 @@ public class VNManager : MonoBehaviour
 				RefreshView();
 			}
 		}
-	}
+
+        //Seal the deal
+        if (Input.GetKeyUp(KeyCode.A) && !bbtManager.BubbleTea.LidOn)
+        {
+            //Debug.Log(vnManager.GetInkVar("tiredness"));
+            bbtManager.BubbleTea.SealDrink();
+            story.variablesState["isTeaMade"] = true;
+            story.variablesState["bubble_tea_score"] = bbtManager.GetTeaScore();
+        }
+    }
 
 	void RefreshView()
 	{
@@ -112,19 +121,29 @@ public class VNManager : MonoBehaviour
 					text = "";// Skip this line
 				}
 				else if (text.StartsWith("EXIT"))
-				{// If a character is entering
+				{// If a character is exiting
 					string characterName = text.Substring(5);
 					Debug.Log("enter character " + characterName);
 					actingCoach.ExitCharacter(characterName);
 					text = "";// Skip this line
 				}
 				else if (text.StartsWith("EXPRESSION"))
-				{// If a character is entering
+				{// If a character is changing expression
 					string[] expressionSplit = text.Split(' ');
 					if(expressionSplit.Length == 3)
 					{
 						Debug.Log("expression " + expressionSplit[1] + " " + expressionSplit[2]);
 						actingCoach.CharacterChangeExpression(expressionSplit[1], expressionSplit[2]);
+					}
+					text = "";// Skip this line
+				}
+				else if (text.StartsWith("POSE"))
+				{// If a character is changing pose
+					string[] poseSplit = text.Split(' ');
+					if (poseSplit.Length == 3)
+					{
+						Debug.Log("pose " + poseSplit[1] + " " + poseSplit[2]);
+						actingCoach.CharacterChangePose(poseSplit[1], poseSplit[2]);
 					}
 					text = "";// Skip this line
 				}
