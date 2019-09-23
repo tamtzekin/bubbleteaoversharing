@@ -47,4 +47,15 @@ public class ActingCoach : MonoBehaviour
 			}
 		}
 	}
+
+	public void CharacterChangePose(string characterName, string pose)
+	{
+		foreach (CharacterManager characterManager in characterManagers)
+		{
+			if (characterManager.characterName == characterName)
+			{
+				characterManager.setAnim(pose);
+			}
+		}
+	}
 }
