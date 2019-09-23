@@ -339,6 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4988812103091916}
   - component: {fileID: 95930650083529816}
+  - component: {fileID: 114599333859897512}
   m_Layer: 0
   m_Name: CharacterPrefab_4
   m_TagString: Untagged
@@ -1699,6 +1700,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114599333859897512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1388929687484448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ec7df329a72af4dae978584a8c9177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charNumber: 4
 --- !u!137 &137000282916244324
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
