@@ -804,11 +804,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: ingredients.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4885671911370336, guid: 3079d2765e8218a468f74c2f59588bc6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -840,64 +835,6 @@ Prefab:
     - target: {fileID: 4885671911370336, guid: 3079d2765e8218a468f74c2f59588bc6, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: ingredients.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 46ba3a4d60117314089380672227f4d5,
-        type: 2}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: ingredients.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: d8f95e441dec99243a54fa13669e17ab,
-        type: 2}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: teaColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: teaColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: teaColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: strawIn
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: ingredients.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 203fccb53d77ffa478670bd50418299f,
-        type: 2}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: ingredients.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: bb5ac5fbe64eec34eacb8304ab9dd282,
-        type: 2}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: fillLevel
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114938620619921008, guid: 3079d2765e8218a468f74c2f59588bc6,
-        type: 2}
-      propertyPath: lidOn
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4885671911370336, guid: 3079d2765e8218a468f74c2f59588bc6, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3079d2765e8218a468f74c2f59588bc6, type: 2}
@@ -1077,6 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f0e0482fee4a84092abd95abca1265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  main: {fileID: 0}
   inkJSONAsset: {fileID: 4900000, guid: f3d671c091b552a469e7656f9d6a142d, type: 3}
   buttonPrefab: {fileID: 11455116, guid: 7c93bd12a6259904fb72d52ae72c4654, type: 2}
   choiceHolder: {fileID: 1502897297}

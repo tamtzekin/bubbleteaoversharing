@@ -150,6 +150,7 @@ public class BBTManager : MonoBehaviour {
                         int newScore = bubbleTea.GetIngredientScore(SelectedIngredientIndex) + 1;
                         if (newScore <= 4)
                         {
+                            bubbleTea.AddIngredient(availableIngredients[SelectedIngredientIndex]);
                             bubbleTea.modIngredientScore(SelectedIngredientIndex, newScore);
                             //show % UI
                             GameObject levelsText = (GameObject)Instantiate(Resources.Load("Prefabs/FloatingNumber"));
