@@ -42,6 +42,7 @@ ENTER Prinita
         -> choose_ice
 
     = choose_ice
+	CAMERA EyesCamera
     - How much ice they wanted. You could see it in their eyes, most of the time.
         *   [None] 
         ~ iceLevel = none 
