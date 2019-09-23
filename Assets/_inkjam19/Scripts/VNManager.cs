@@ -36,7 +36,10 @@ public class VNManager : MonoBehaviour
 	[SerializeField]
 	CameraDirector cameraDirector;
 
-    [Header("Gameplay")]
+	[SerializeField]
+	ActingCoach actingCoach;
+
+	[Header("Gameplay")]
 	[SerializeField]
 	BBTManager bbtManager;
 
@@ -99,6 +102,13 @@ public class VNManager : MonoBehaviour
 					string cameraName = text.Substring(7);
 					Debug.Log("change camera to " + cameraName);
 					cameraDirector.ChangeCamera(cameraName);
+					text = "";// Skip this line
+				}
+				else if (text.StartsWith("ENTER"))
+				{// If a character is entering
+					string characterName = text.Substring(6);
+					Debug.Log("enter character " + characterName);
+					actingCoach.EnterCharacter(characterName);
 					text = "";// Skip this line
 				}
 			}

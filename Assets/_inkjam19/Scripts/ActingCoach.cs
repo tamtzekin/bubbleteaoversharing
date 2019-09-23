@@ -14,4 +14,15 @@ public class ActingCoach : MonoBehaviour
 			characterManager.gameObject.SetActive(false);
 		}
 	}
+
+	public void EnterCharacter(string characterName)
+	{
+		foreach (CharacterManager characterManager in characterManagers)
+		{
+			if (characterManager.characterName == characterName)
+			{
+				characterManager.gameObject.SetActive(true);
+			}
+		}
+	}
 }
