@@ -13,8 +13,8 @@ CAMERA CustomerCamera
     -   Valeria: "I'm an artist. Was an artist, now work as more of a consultant these days. Freelance. Rent's too much in Berlin now that all the investors have moved in."
 	CAMERA SideOnCamera
     -   Valeria: "You heard of DistEnZ? They make sneakers from ethically-sourced vegan material."
-	CAMERA CustomerCamera
     -   Valeria: "After you're done with them, you can burn them for biofuel. Put it in your car, or something."
+	CAMERA CustomerCamera
     -   Valeria: "I bounce between Colombia and Shenzhen sourcing materials. Most of it comes from recycled bullet casings we find buried in farms across Mongolia."
         *   [Save our planet] Our planet is burning. Save it. Do your bit, and all.  
         *   [How are bullet casings vegan?] I don't really understand how bullet casings can be considered vegan. In any way. 
@@ -49,7 +49,7 @@ CAMERA FaceCamera
     -   Valeria: "Thanks for listening. Now, should we see what the pearls say?"
         *   [(Let's do it)]
     
-    -   -> fail_handler
+    -   -> read_fortune
 
 // Fail condition
     = fail_handler
@@ -101,7 +101,7 @@ CAMERA FaceCamera
         Yoga, even? 
 
     }
--> show_final_score_customer_three
+-> END
 
 === show_final_score_customer_three ===
         FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
