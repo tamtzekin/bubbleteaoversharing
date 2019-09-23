@@ -68,12 +68,11 @@ VAR taro = false
 // Game script
 === intro === 
     -   Some bubble tea places go all out. Cheese, burnt cheese, fresh taro, purple rice, rice and yoghurt. 
-    -   It gets pretty wild.
-    -   You know how people read tea leaves? It's called "tasseography", I found out. It's really big with mums on Pinterest now. 
-    -   So, I read an article in Harper's. I thought I might be able to do the same.
-    -   They tend to look down on us. But I'd argue it's an art in itself.
-    -   We're at the brink of a new age. A new period in human occupation, where everyone's troubles and anxieties can just bubble away.
-        *   [(Serve)]
+    -   A new era in bubble tea.
+    -   You know how people read tea leaves? It's called "tasseography", I found out.
+    -   Turns out you can do the same with those little pearls in bubble tea. People look down on us, but I'd argue it's an art.
+    -   We must be on the brink of something if we're looking at soggy balls of starch for life advice.
+        *   [(SERVE)]
     -> customer_one
 
 // If user fails to complete the tea to order, divert them here 
