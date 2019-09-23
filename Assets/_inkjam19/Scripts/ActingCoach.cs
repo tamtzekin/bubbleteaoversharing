@@ -25,4 +25,15 @@ public class ActingCoach : MonoBehaviour
 			}
 		}
 	}
+
+	public void ExitCharacter(string characterName)
+	{
+		foreach (CharacterManager characterManager in characterManagers)
+		{
+			if (characterManager.characterName == characterName)
+			{
+				characterManager.gameObject.SetActive(false);
+			}
+		}
+	}
 }

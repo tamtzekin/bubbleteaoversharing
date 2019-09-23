@@ -111,6 +111,13 @@ public class VNManager : MonoBehaviour
 					actingCoach.EnterCharacter(characterName);
 					text = "";// Skip this line
 				}
+				else if (text.StartsWith("EXIT"))
+				{// If a character is entering
+					string characterName = text.Substring(5);
+					Debug.Log("enter character " + characterName);
+					actingCoach.ExitCharacter(characterName);
+					text = "";// Skip this line
+				}
 			}
 			while (text.Length == 0 && story.canContinue);
 			// Display the text on screen!
