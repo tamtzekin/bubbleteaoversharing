@@ -56,6 +56,10 @@ public class VNManager : MonoBehaviour
 			{
 				bbtManager.StoryTiredness = (int)newValue;
 			});
+			story.ObserveVariable("sizeLevel", (string varName, object newValue) =>
+			{
+				bbtManager.SetDrinkSize(newValue.ToString());
+			});
 		}
     }
 

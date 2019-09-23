@@ -7,6 +7,8 @@ public class Main : MonoBehaviour
 	[SerializeField]
 	VNManager vnManager;
 
+    GameObject gameplayUI;
+
 	[SerializeField]
 	Canvas menuCanvas;
 
@@ -31,6 +33,8 @@ public class Main : MonoBehaviour
 		currentState = State.MainMenu;
 		menuCanvas.gameObject.SetActive(false);
 		vnManager.gameObject.SetActive(false);
+        gameplayUI = GameObject.Find("GameplayUI");
+        gameplayUI.SetActive(false);
 		credits.SetActive(false);
 		cameraDirector.ChangeCamera("CameraMenu");
 	}
@@ -42,6 +46,7 @@ public class Main : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				vnManager.gameObject.SetActive(!vnManager.gameObject.activeSelf);
+                gameplayUI.SetActive(!vnManager.gameObject.activeSelf);
 				if (!vnManager.gameObject.activeSelf)
 				{
 					menuCanvas.gameObject.SetActive(true);
@@ -59,6 +64,7 @@ public class Main : MonoBehaviour
 		startMenuCanvas.gameObject.SetActive(false);
 		cameraDirector.ChangeCamera("SecondCamera");
 		vnManager.gameObject.SetActive(true);
+        gameplayUI.SetActive(true);
 		vnManager.StartStory();
 		currentState = State.Game;
 	}
@@ -93,6 +99,7 @@ public class Main : MonoBehaviour
 	public void Return()
 	{
 		vnManager.gameObject.SetActive(true);
+        gameplayUI.SetActive(true);
 		menuCanvas.gameObject.SetActive(false);
 	}
 
