@@ -102,7 +102,7 @@ CAMERA CustomerCamera
 CAMERA CustomerCamera
     -   Prinita: "Ah, it's just such a pain. Erik wants me to go back over to Brazil. He's found an artist over there, over in the favelas. He thinks he'll be big. He's doing a studio visit."
 	CAMERA EyesCamera
-    -   "I think it's pretty amateur stuff." 
+    -   Prinita: "I think it's pretty amateur stuff." 
         *   [Support him] You should give it a chance. It'll be a change of pace. {stats(customer_satisfaction, -1)}
         *   [Forget it] Can't he hunt for artists over here instead? {stats(customer_satisfaction, 1)}
         *   [Do it for yourself] Maybe it's worth starting another life over there. {stats(customer_satisfaction, -1)}
@@ -121,7 +121,7 @@ CAMERA CustomerCamera
         *   [All for it] Support local artists. I'm into it. {stats(customer_satisfaction, -1)}
         *   [Bad idea] You're really starting to make this sound like a bad idea. 
         *   [You should interrogate him] What is he going to do, make them paint for food? {stats(customer_satisfaction, 1)}
-    -   -> fail_handler
+    -   -> read_fortune
 
 // Fail condition
     = fail_handler
@@ -138,7 +138,7 @@ CAMERA CustomerCamera
     I took the straw out. Carefully. I didn't want to disturb the pearls. 
         *   [What's your question?] What do you want to ask the pearls?
         
-    -   Prinita: "Whether I should leave my job and follow my partner to Spain. Or leave them instead."
+    -   Prinita: "Whether I should leave my job and follow my partner to Brazil. Or leave them instead."
         *   [Really?] You're sure you want the answer to that?
         *   [Whatever you say] If that's what you want. 
         *   [Try it] Let's see what the pearls say.
@@ -200,8 +200,8 @@ CAMERA CustomerCamera
             Prinita: "God damn it. I shouldn't have looked. It was going to screw up either way."
             Prinita looked at the cup one last time, as if looking would change things, and left.
         }
-
-    -> show_final_score_customer_one
+	EXIT Prinita
+    -> customer_two
 
 === show_final_score_customer_one ===
     FINAL SCORE: tiredness = {tiredness}, customer_satisfaction = {customer_satisfaction}
