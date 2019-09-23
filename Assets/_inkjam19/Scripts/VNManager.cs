@@ -50,8 +50,12 @@ public class VNManager : MonoBehaviour
 		speakerBox.SetActive(false);
 		story = new Story(inkJSONAsset.text);
 		dialogueText.text = "";
+        bbtManager = GameObject.Find("BBTManager").GetComponent<BBTManager>();
         story.ObserveVariable("tiredness", (string varName, object newValue) => {
             bbtManager.StoryTiredness = (int)newValue;
+        });
+        story.ObserveVariable("sizeLevel", (string varName, object newValue) => {
+            bbtManager.SetDrinkSize(newValue.ToString());
         });
     }
 
@@ -84,7 +88,6 @@ public class VNManager : MonoBehaviour
         //Seal the deal
         if (Input.GetKeyUp(KeyCode.A) && !bbtManager.BubbleTea.LidOn)
         {
-            //Debug.Log(vnManager.GetInkVar("tiredness"));
             bbtManager.BubbleTea.SealDrink();
             story.variablesState["isTeaMade"] = true;
             story.variablesState["bubble_tea_score"] = bbtManager.GetTeaScore();

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 
 public class BBTManager : MonoBehaviour {
-    [SerializeField]
     BubbleTea bubbleTea;
+    Vector3 initBBTSize;
     public BubbleTea BubbleTea
     {
         get { return bubbleTea; }
@@ -32,21 +32,17 @@ public class BBTManager : MonoBehaviour {
             }
         }
     }
-    [Header("UI - Toppings")]
-    [SerializeField]
+
+    // "UI - Toppings"
     Image prevTopping;
-    [SerializeField]
     Image currentTopping;
-    [SerializeField]
     Image nextTopping;
-    [SerializeField]
     Text assignedLetter;
-    [SerializeField]
     Text toppingName;
 
     [Header("UI - Stamina")]
     public int maxStamina;
-    public Image staminaBar;
+    Image staminaBar;
     int storyTiredness = 0;
     public int StoryTiredness
     {
@@ -67,6 +63,7 @@ public class BBTManager : MonoBehaviour {
             UpdateStaminaBar();
         }
     }
+
     [Header("Mods")]
     public float teaFillSpeed;
     public float ingredientTimerIncrement;
@@ -77,7 +74,10 @@ public class BBTManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //stamina = maxStamina;
+        bubbleTea = GameObject.Find("BubbleTea").GetComponent<BubbleTea>();
+        initBBTSize = bubbleTea.gameObject.transform.localScale;
         initKeyCodes();
+        LoadUI();
         LoadIngredients();
 	}
 
@@ -105,6 +105,19 @@ public class BBTManager : MonoBehaviour {
         ingredientKeyCodes[7] = KeyCode.I;
         ingredientKeyCodes[8] = KeyCode.O;
         ingredientKeyCodes[9] = KeyCode.P;
+    }
+
+    //Set all variables for UI
+    void LoadUI()
+    {
+        prevTopping = GameObject.Find("PrevTopping").GetComponent<Image>();
+        currentTopping = GameObject.Find("CurrentTopping").GetComponent<Image>();
+        nextTopping = GameObject.Find("NextTopping").GetComponent<Image>();
+
+        assignedLetter = GameObject.Find("AssignedLetter").GetComponent<Text>();
+        toppingName = GameObject.Find("ToppingName").GetComponent<Text>();
+
+        staminaBar = GameObject.Find("TirednessBar").GetComponent<Image>();
     }
 
     //stamina bar moves depending on value of stamina
@@ -157,7 +170,7 @@ public class BBTManager : MonoBehaviour {
                             bubbleTea.modIngredientScore(SelectedIngredientIndex, newScore);
                             //show % UI
                             GameObject levelsText = (GameObject)Instantiate(Resources.Load("Prefabs/FloatingNumber"));
-                            levelsText.transform.parent = bubbleTea.gameObject.transform;
+                            levelsText.transform.SetParent(bubbleTea.gameObject.transform);
                             levelsText.GetComponent<RectTransform>().localPosition = new Vector3(0, 100, -5);
                             levelsText.GetComponent<RectTransform>().localRotation = new Quaternion(0, 0, 0, 1);
                             levelsText.GetComponent<TextMeshPro>().text = (newScore * 25) + "%";
@@ -310,5 +323,17 @@ public class BBTManager : MonoBehaviour {
         toppingName.text = IngredientString(SelectedIngredientIndex);
         currentTopping.sprite = Resources.Load<Sprite>("Sprites/" + IngredientString(SelectedIngredientIndex) + "_icon");
         currentTopping.color = Color.white;
+    }
+
+    public void SetDrinkSize(string size)
+    {
+        if (size == "large")
+        {
+            bubbleTea.gameObject.transform.localScale *= 1.5f;
+        }
+        else
+        {
+            bubbleTea.gameObject.transform.localScale = initBBTSize;
+        }
     }
 }
