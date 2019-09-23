@@ -17,7 +17,7 @@ INCLUDE customer_two.ink
 INCLUDE customer_three.ink
 
 // Debug mode - skip to different sections of the story
-VAR DEBUG = true
+VAR DEBUG = false
 { DEBUG:
     WELCOME TO DEBUG MODE
     *   [Intro]	-> intro
