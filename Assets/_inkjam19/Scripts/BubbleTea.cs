@@ -74,9 +74,22 @@ public class BubbleTea : MonoBehaviour
 		liquidRenderer.material.SetFloat("_FillAmount", Mathf.Lerp(1.8f, -0.1f, fillLevel));
 	}
 
-    void updateIngredients()
+
+	public void Reset()
+	{
+		LidOn = false;
+		fillLevel = 0;
+		ingredients.Clear();
+		updateIngredients();
+	}
+
+	void updateIngredients()
     {
-        foreach (Ingredient ingredient in ingredients)
+		foreach (IngredientGroup ingredientGroup in ingredientGroups)
+		{
+			ingredientGroup.gameObject.SetActive(false);
+		}
+		foreach (Ingredient ingredient in ingredients)
         {
             foreach (IngredientGroup ingredientGroup in ingredientGroups)
             {

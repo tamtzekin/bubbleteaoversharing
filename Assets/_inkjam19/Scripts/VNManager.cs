@@ -56,11 +56,12 @@ public class VNManager : MonoBehaviour
 		dialogueText.text = "";
 		if (bbtManager != null)
 		{
+			/*
 			story.ObserveVariable("tiredness", (string varName, object newValue) =>
 			{
 				bbtManager.StoryTiredness = (int)newValue;
 			});
-			/*
+			
 			story.ObserveVariable("sizeLevel", (string varName, object newValue) =>
 			{
 				bbtManager.SetDrinkSize(newValue.ToString());
@@ -170,6 +171,7 @@ public class VNManager : MonoBehaviour
 				}
 				else if (text.StartsWith("MAKE_TEA"))
 				{
+					bbtManager.BubbleTea.Reset();
 					bbtManager.gameObject.SetActive(true);
 					gameplayUI.SetActive(true);
 					dialogueBox.SetActive(false);

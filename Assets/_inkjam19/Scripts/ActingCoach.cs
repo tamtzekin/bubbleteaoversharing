@@ -21,6 +21,7 @@ public class ActingCoach : MonoBehaviour
 		{
 			if (characterManager.characterName == characterName)
 			{
+				GetComponent<AudioSource>().Play();
 				characterManager.gameObject.SetActive(true);
 			}
 		}

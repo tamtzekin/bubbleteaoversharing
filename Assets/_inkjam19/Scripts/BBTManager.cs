@@ -152,7 +152,7 @@ public class BBTManager : MonoBehaviour {
         }*/
 
 		//Seal the deal
-		if (Input.GetKeyUp(KeyCode.A) && !BubbleTea.LidOn)
+		if (Input.GetKeyUp(KeyCode.S) && !BubbleTea.LidOn)
 		{
 			//Debug.Log(vnManager.GetInkVar("tiredness"));
 			BubbleTea.SealDrink();
