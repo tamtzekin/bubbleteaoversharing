@@ -50,9 +50,13 @@ public class VNManager : MonoBehaviour
 		speakerBox.SetActive(false);
 		story = new Story(inkJSONAsset.text);
 		dialogueText.text = "";
-        story.ObserveVariable("tiredness", (string varName, object newValue) => {
-            bbtManager.StoryTiredness = (int)newValue;
-        });
+		if (bbtManager != null)
+		{
+			story.ObserveVariable("tiredness", (string varName, object newValue) =>
+			{
+				bbtManager.StoryTiredness = (int)newValue;
+			});
+		}
     }
 
 	public void StartStory()
