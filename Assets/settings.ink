@@ -79,6 +79,6 @@ VAR taro = false
 -> END
 
 /* If user fails to complete the tea to order, divert them here 
-... Oh no! You failed to make the tea! */
-=== game_over ===
+... Oh no! You failed to make the tea!
+=== game_over === */
 //TODO: show fail screen 
