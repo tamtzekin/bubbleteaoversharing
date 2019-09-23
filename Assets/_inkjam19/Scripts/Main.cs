@@ -57,7 +57,7 @@ public class Main : MonoBehaviour
 	public void Begin()
 	{
 		startMenuCanvas.gameObject.SetActive(false);
-		cameraDirector.ChangeCamera("Main Camera");
+		cameraDirector.ChangeCamera("SecondCamera");
 		vnManager.gameObject.SetActive(true);
 		vnManager.StartStory();
 		currentState = State.Game;
