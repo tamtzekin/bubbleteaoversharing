@@ -76,6 +76,7 @@ ENTER Nam
 
     = small_talk
         *   [(Make drink)]
+MAKE_TEA
 CAMERA FaceCamera
     -   Nam: "You know, because you're listening, not going to lie but I'm pretty stressed right now."
         *   [What's up?] What's bothering you?

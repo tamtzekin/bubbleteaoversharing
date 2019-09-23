@@ -64,7 +64,7 @@ public class Main : MonoBehaviour
 		startMenuCanvas.gameObject.SetActive(false);
 		cameraDirector.ChangeCamera("SecondCamera");
 		vnManager.gameObject.SetActive(true);
-        gameplayUI.SetActive(true);
+        //gameplayUI.SetActive(true);
 		vnManager.StartStory();
 		currentState = State.Game;
 	}

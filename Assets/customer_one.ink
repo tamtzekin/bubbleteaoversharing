@@ -78,6 +78,8 @@ ENTER Prinita
         -> small_talk
 
     = small_talk
+MAKE_TEA
+CAMERA SideOnCamera
     -   I don't even know if the tea was any good. Sometimes they just tipped it out into the gutter and handed the cup back over for a reading.
         *   [(Small talk)] 
 CAMERA CustomerCamera

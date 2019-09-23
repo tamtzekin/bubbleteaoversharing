@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using Ink.Runtime;
 
@@ -43,6 +44,9 @@ public class VNManager : MonoBehaviour
 	[SerializeField]
 	BBTManager bbtManager;
 
+	[SerializeField]
+	GameObject gameplayUI;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -56,12 +60,20 @@ public class VNManager : MonoBehaviour
 			{
 				bbtManager.StoryTiredness = (int)newValue;
 			});
+			/*
 			story.ObserveVariable("sizeLevel", (string varName, object newValue) =>
 			{
 				bbtManager.SetDrinkSize(newValue.ToString());
 			});
+			*/
 		}
     }
+
+	private void Start()
+	{
+		//gameplayUI.SetActive(false);
+		bbtManager.gameObject.SetActive(false);
+	}
 
 	public void StartStory()
 	{
@@ -74,6 +86,7 @@ public class VNManager : MonoBehaviour
 		if(story.canContinue || choiceHolder.transform.childCount == 0)
 		{
 			if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
+			//if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
 			{
 				RefreshView();
 			}
@@ -114,7 +127,7 @@ public class VNManager : MonoBehaviour
 				text = story.Continue();
 				// This removes any white space from the text.
 				text = text.Trim();
-				if(text.StartsWith("CAMERA"))
+				if (text.StartsWith("CAMERA"))
 				{// If we're changing the camera
 					string cameraName = text.Substring(7);
 					Debug.Log("change camera to " + cameraName);
@@ -138,7 +151,7 @@ public class VNManager : MonoBehaviour
 				else if (text.StartsWith("EXPRESSION"))
 				{// If a character is changing expression
 					string[] expressionSplit = text.Split(' ');
-					if(expressionSplit.Length == 3)
+					if (expressionSplit.Length == 3)
 					{
 						Debug.Log("expression " + expressionSplit[1] + " " + expressionSplit[2]);
 						actingCoach.CharacterChangeExpression(expressionSplit[1], expressionSplit[2]);
@@ -154,6 +167,15 @@ public class VNManager : MonoBehaviour
 						actingCoach.CharacterChangePose(poseSplit[1], poseSplit[2]);
 					}
 					text = "";// Skip this line
+				}
+				else if (text.StartsWith("MAKE_TEA"))
+				{
+					bbtManager.gameObject.SetActive(true);
+					gameplayUI.SetActive(true);
+					dialogueBox.SetActive(false);
+					cameraDirector.ChangeCamera("MakingCamera2");
+					this.gameObject.SetActive(false);
+					return;
 				}
 			}
 			while (text.Length == 0 && story.canContinue);
@@ -191,6 +213,14 @@ public class VNManager : MonoBehaviour
 				main.Credits();
 			});
 		}
+	}
+
+	public IEnumerator RestartStoryCoroutine()
+	{
+		gameplayUI.SetActive(false);
+		yield return new WaitForSeconds(1f);
+		RefreshView();
+		gameObject.SetActive(true);
 	}
 
 	// When we click the choice button, tell the story to choose that choice!

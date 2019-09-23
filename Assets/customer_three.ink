@@ -6,9 +6,11 @@ ENTER Valeria
 CAMERA CustomerCamera
     -   Customer: Name's Valeria.
         *   [(Make drink)]
+MAKE_TEA
         -> small_talk
 
     = small_talk
+CAMERA CustomerCamera
     -   Valeria: "So how does this work. I tell you a bit about myself, then I ask a question, and you tell me what's gonna happen?"
     -   Valeria: "I'm an artist. Was an artist, now work as more of a consultant these days. Freelance. Rent's too much in Berlin now that all the investors have moved in."
 	CAMERA SideOnCamera

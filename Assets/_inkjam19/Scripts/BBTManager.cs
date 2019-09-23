@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 
 public class BBTManager : MonoBehaviour {
+	[SerializeField]
+	VNManager vnManager;
+
     BubbleTea bubbleTea;
     Vector3 initBBTSize;
     public BubbleTea BubbleTea
@@ -72,7 +75,7 @@ public class BBTManager : MonoBehaviour {
     KeyCode[] ingredientKeyCodes;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         //stamina = maxStamina;
         bubbleTea = GameObject.Find("BubbleTea").GetComponent<BubbleTea>();
         initBBTSize = bubbleTea.gameObject.transform.localScale;
@@ -117,7 +120,7 @@ public class BBTManager : MonoBehaviour {
         assignedLetter = GameObject.Find("AssignedLetter").GetComponent<Text>();
         toppingName = GameObject.Find("ToppingName").GetComponent<Text>();
 
-        staminaBar = GameObject.Find("TirednessBar").GetComponent<Image>();
+        //staminaBar = GameObject.Find("TirednessBar").GetComponent<Image>();
     }
 
     //stamina bar moves depending on value of stamina
@@ -138,7 +141,7 @@ public class BBTManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         manageInput();
-        if(staminaBar.transform.parent.localScale.x != 10)
+        /*if(staminaBar.transform.parent.localScale.x != 10)
         {
             //0.3f of a sec, move back to original scale
             t += Time.deltaTime / 0.3f;
@@ -146,7 +149,15 @@ public class BBTManager : MonoBehaviour {
         } else
         {
             t = 0;
-        }
+        }*/
+
+		//Seal the deal
+		if (Input.GetKeyUp(KeyCode.A) && !BubbleTea.LidOn)
+		{
+			//Debug.Log(vnManager.GetInkVar("tiredness"));
+			BubbleTea.SealDrink();
+			StartCoroutine(vnManager.RestartStoryCoroutine());
+		}
 	}
 
     //manage what happens with the different toppings
@@ -157,7 +168,8 @@ public class BBTManager : MonoBehaviour {
         {
             if (Input.GetKey(kc))
             {
-                if (IngredientString(SelectedIngredientIndex) == "Ice" || IngredientString(SelectedIngredientIndex) == "Sugar")
+				//hacks
+                if (IngredientString(SelectedIngredientIndex) == "Ice2" || IngredientString(SelectedIngredientIndex) == "Sugar2")
                 {
                     //if ice or sugar user holds down key to slowly increase %
                     ingredientTimer += Time.deltaTime;
@@ -210,7 +222,7 @@ public class BBTManager : MonoBehaviour {
                         bubbleTea.modIngredientScore(SelectedIngredientIndex, 4);
                     }
                     //add tiredness after any action
-                    WorkTiredness++;
+                    //WorkTiredness++;
                 }
                 else
                 {
