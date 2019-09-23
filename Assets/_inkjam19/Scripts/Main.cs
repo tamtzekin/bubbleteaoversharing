@@ -65,6 +65,7 @@ public class Main : MonoBehaviour
 
 	public void Credits()
 	{
+		cameraDirector.ChangeCamera("CameraMenu");
 		startMenuCanvas.gameObject.SetActive(false);
 		credits.SetActive(true);
 		for (int i = 0; i < creditsObjects.Length; i++)

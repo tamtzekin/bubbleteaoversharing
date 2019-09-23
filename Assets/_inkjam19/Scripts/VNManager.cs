@@ -177,6 +177,8 @@ public class VNManager : MonoBehaviour
 			Button choice = CreateChoiceView("THE END");
 			choice.onClick.AddListener(delegate
 			{
+				Debug.Log("End game");
+				dialogueBox.SetActive(false);
 				RemoveChildren();
 				main.Credits();
 			});
