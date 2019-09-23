@@ -36,4 +36,15 @@ public class ActingCoach : MonoBehaviour
 			}
 		}
 	}
+
+	public void CharacterChangeExpression(string characterName, string expression)
+	{
+		foreach (CharacterManager characterManager in characterManagers)
+		{
+			if (characterManager.characterName == characterName)
+			{
+				characterManager.charExpression(expression);
+			}
+		}
+	}
 }

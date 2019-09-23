@@ -118,6 +118,16 @@ public class VNManager : MonoBehaviour
 					actingCoach.ExitCharacter(characterName);
 					text = "";// Skip this line
 				}
+				else if (text.StartsWith("EXPRESSION"))
+				{// If a character is entering
+					string[] expressionSplit = text.Split(' ');
+					if(expressionSplit.Length == 3)
+					{
+						Debug.Log("expression " + expressionSplit[1] + " " + expressionSplit[2]);
+						actingCoach.CharacterChangeExpression(expressionSplit[1], expressionSplit[2]);
+					}
+					text = "";// Skip this line
+				}
 			}
 			while (text.Length == 0 && story.canContinue);
 			// Display the text on screen!
